@@ -1,0 +1,49 @@
+/* src/components/BreadCrumbs/BreadCrumbs.css */
+:root {
+  --active_color: black;
+  --additional_color: gray;
+}
+
+.breadcrumbs {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 20px 0 20px 141px; /* Выравниваем по левому краю как у контента */
+  margin: 0;
+  font-family: "Public Sans-Regular", Helvetica;
+  position: fixed;
+  top: 145px; /* Под Header'ом */
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 2;
+  /* border-bottom: 1px solid #f0f0f0; */
+}
+
+.breadcrumbs * {
+  color: var(--additional_color);
+  transition: 0.5s;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.breadcrumbs *:not(.slash):hover {
+  color: var(--active_color);
+}
+
+.breadcrumbs li {
+  position: relative;
+  cursor: pointer;
+}
+
+.breadcrumbs li:last-child {
+  color: var(--active_color);
+}
+
+.breadcrumbs .slash {
+  cursor: default;
+}
+
+.breadcrumbs .slash:hover {
+  color: var(--additional_color);
+}

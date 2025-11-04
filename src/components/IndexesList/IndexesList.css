@@ -1,0 +1,30 @@
+/* src/components/IndexesList/IndexesList.css */
+.indexes-list-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.not-found-message {
+  position: relative;
+  margin-top: 40px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 30px;
+}
+
+.indexes-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 16px 16px;
+}

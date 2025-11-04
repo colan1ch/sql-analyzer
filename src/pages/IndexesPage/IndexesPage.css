@@ -1,0 +1,90 @@
+/* src/pages/IndexesPage/IndexesPage.css */
+.main-page {
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 100%;
+  min-height: 1092px;
+  display: flex;
+  position: relative;
+}
+
+.main-page .main {
+  z-index: 1;
+  margin-top: 190px;
+  width: 100%;
+  height: 946px;
+  display: flex;
+}
+
+.main-page .frame {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1px;
+  width: 998px;
+  height: 906px;
+  margin-left: 141px;
+  position: relative;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Search section */
+.search-section {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -40px;
+}
+
+.no-indexes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+}
+
+/* File Icon стили */
+.file-icon-wrapper {
+  position: fixed;
+  top: 160px;
+  opacity: 50%;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.file-icon-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.file-icon {
+  width: 80px;
+  height: 80px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.file-count {
+  width: 32px;
+  height: 32px;
+  background-color: #ed3f39;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 16px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

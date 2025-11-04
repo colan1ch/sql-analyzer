@@ -1,0 +1,104 @@
+/* src/pages/HomePage/HomePage.css */
+.home-page {
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 100%;
+  min-height: 960px;
+  display: flex;
+}
+
+.home-page .main {
+  z-index: 1;
+  margin-top: 185px; /* Увеличиваем отступ из-за хлебных крошек */
+  width: 100%;
+  height: 815px;
+  display: flex;
+}
+
+.home-page .frame {
+  display: flex;
+  margin-top: 1px;
+  width: 762px;
+  height: 774px;
+  margin-left: 259px;
+  position: relative;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.home-page .grid-container {
+  display: flex;
+  flex-direction: column;
+  width: 752px;
+  height: 754px;
+  align-items: flex-start;
+  gap: 40px;
+  position: relative;
+  margin-right: -10px;
+}
+
+.welcome-text {
+  position: relative;
+  align-self: stretch;
+  height: auto;
+  margin-top: -1px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 48px;
+  letter-spacing: 0;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.description {
+  position: relative;
+  width: 748px;
+  font-family: "Public Sans-Regular", Helvetica;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+.description p {
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.action-button {
+  padding: 15px 30px;
+  background-color: #ed3f39;
+  border-radius: 5px;
+  border: 2px solid #000000;
+  color: #ffffff;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #000000;
+  border-color: #ed3f39;
+}
+
+.action-button.secondary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.action-button.secondary:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #ed3f39;
+}

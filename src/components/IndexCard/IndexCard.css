@@ -1,0 +1,95 @@
+/* src/components/IndexCard.css */
+.index-card {
+  position: relative;
+  flex: 0 0 calc(33.333% - 16px);
+  min-width: 300px;
+  max-width: 33.333%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-top: 50px;
+}
+
+.index-name {
+  position: relative;
+  width: 161px;
+  height: 25px;
+}
+
+.index-name-text {
+  position: absolute;
+  width: 95.03%;
+  height: 84%;
+  top: 0;
+  left: 0;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 22px;
+  letter-spacing: 0;
+  line-height: 20.2px;
+  white-space: nowrap;
+}
+
+.index-name-text:hover {
+  color: #ed3f39;
+  cursor: pointer;
+}
+
+.card-wrapper {
+  display: flex;
+  width: 218px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.card-image {
+  position: relative;
+  width: 218px;
+  height: 100px;
+  margin-top: -1.5px;
+  margin-bottom: -1.5px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.card-image:hover {
+  cursor: pointer;
+}
+
+.index-description {
+  width: 219.61px;
+  height: 100px;
+  margin-bottom: -30.54px;
+  color: #000000;
+  font-size: 14px;
+  position: relative;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20.2px;
+}
+
+.add-button {
+  width: 111px;
+  height: 37px;
+  background-color: #ed3f39;
+  border-radius: 5px;
+  border: 2px solid #000000;
+  color: #ffffff;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14.4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  background-color: #000000;
+  border-color: #ed3f39;
+}
