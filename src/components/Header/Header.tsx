@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     <div className="header-container">
       <div className="frame-top"></div>
       <div className="logo-wrapper">
-        <a href="/">
+        <a href="/sql-analyzer">
           <img className="logo" src={logo_path} alt="Logo" />
         </a>
         
