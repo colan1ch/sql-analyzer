@@ -151,62 +151,89 @@
   border-color: #ed3f39;
 }
 
-/* ... существующие стили ... */
-
 /* Mobile */
 @media (max-width: 767px) {
+  .product-page .main {
+    margin-top: 165px; /* Подняли выше */
+    height: auto;
+    min-height: auto;
+  }
+  
+  .product-page {
+    min-height: auto;
+  }
+  
   .product-page .frame {
-    margin-left: 20px;
-    margin-right: 20px;
-    width: calc(100% - 40px);
+    margin-left: 10px; /* Уменьшил отступы */
+    margin-right: 10px;
+    width: calc(100% - 20px); /* Уже карточка */
+    height: auto;
+    padding: 0;
+  }
+  
+  .product-page .grid-container {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    gap: 15px;
+    padding: 0 5px; /* Добавил внутренние отступы */
   }
   
   .product-page .text-wrapper {
-    font-size: 48px;
+    font-size: 36px;
     line-height: 1.2;
     height: auto;
     white-space: normal;
+    text-align: center;
+    width: 100%;
+    padding: 0 10px; /* Отступы по бокам текста */
   }
   
   .product-page .image {
-    width: 100%;
+    width: 95%; /* Уже картинка */
     height: auto;
-    max-height: 250px;
+    max-height: 180px;
+    object-fit: contain;
+    margin: 0 auto; /* Центрируем */
   }
   
   .product-page .div {
-    width: 100%;
+    width: 95%; /* Уже текст */
     font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0 auto 20px auto; /* Центрируем */
   }
   
   .index-details {
+    width: 95%; /* Уже блок деталей */
     padding: 15px;
+    margin: 15px auto; /* Центрируем */
   }
   
   .detail-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
+    padding: 8px 0;
+  }
+  
+  .detail-label,
+  .detail-value {
+    font-size: 14px;
   }
   
   .actions {
     flex-direction: column;
     gap: 10px;
+    width: 95%; /* Уже кнопки */
+    margin: 20px auto 0 auto; /* Центрируем */
   }
   
+  .add-button,
   .back-button {
     width: 100%;
-  }
-}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .product-page .frame {
-    margin-left: 50px;
-    width: calc(100% - 100px);
-  }
-  
-  .product-page .text-wrapper {
-    font-size: 64px;
+    height: 44px;
+    font-size: 16px;
   }
 }

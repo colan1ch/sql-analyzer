@@ -56,3 +56,28 @@
   border-color:#ed3f39;
   cursor: pointer;
 }
+
+/* Mobile */
+@media (max-width: 767px) {
+  .search-form {
+    width: 100%;
+    gap: 8px;
+    padding: 6px 12px;
+  }
+  
+  .search-input {
+    font-size: 14px;
+    padding: 6px 0;
+  }
+  
+  .search-button {
+    padding: 6px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  
+  .search-icon {
+    width: 20px;
+    height: 20px;
+  }
+}

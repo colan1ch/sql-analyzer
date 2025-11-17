@@ -47,6 +47,17 @@
   text-align: center;
 }
 
+.loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+}
+
 /* File Icon стили */
 .file-icon-wrapper {
   position: fixed;
@@ -90,50 +101,74 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* ... существующие стили ... */
-
 /* Grid контейнер для карточек */
 .indexes-grid-container {
   width: 100%;
 }
 
+/* Замени мобильные стили в IndexesPage.css */
+
 /* Mobile */
 @media (max-width: 767px) {
+  .main-page .main {
+    margin-top: 140px;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .main-page {
+    min-height: auto;
+  }
+  
   .main-page .frame {
-    margin-left: 20px;
-    margin-right: 20px;
-    width: calc(100% - 40px);
+    margin-left: 70px; /* Сдвинули вправо для иконки файла */
+    margin-right: 15px;
+    width: calc(100% - 85px); /* Учитываем отступ слева + стандартный справа */
+    height: auto;
+    padding: 0;
+    gap: 15px;
   }
   
   .search-section {
     justify-content: center;
-  }
-  
-  .search-form {
+    margin-bottom: 0;
+    margin-top: 20px;
     width: 100%;
-    max-width: 100%;
+    padding-left: 0; /* Убедимся что нет лишних отступов */
   }
   
   .file-icon-wrapper {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin: 20px auto;
-    flex-direction: row;
-    gap: 15px;
+    position: fixed;
+    top: 155px;
+    left: 15px;
+    z-index: 10;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0.5;
+    margin: 0;
+  }
+  
+  .file-icon {
+    width: 50px;
+    height: 50px;
   }
   
   .file-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    position: static;
   }
-}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .main-page .frame {
-    margin-left: 50px;
-    width: calc(100% - 100px);
+  
+  .no-indexes,
+  .loading-message {
+    height: 150px;
+    font-size: 16px;
+    padding: 0 20px;
+  }
+  
+  .indexes-grid-container {
+    margin-top: 10px;
+    width: 100%;
   }
 }

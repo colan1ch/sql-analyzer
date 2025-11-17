@@ -183,7 +183,7 @@
   }
   
   .frame-top {
-    height: 30px;
+    height: 40px;
   }
   
   .header-nav {
@@ -195,34 +195,20 @@
     padding: 8px 12px;
     font-size: 14px;
   }
-}
 
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .mobile-menu-toggle,
-  .mobile-nav {
-    display: none;
+  /* Фиксим крестик бургера */
+  .line1 {
+    transform: rotate(45deg) translate(5px, 5px);
   }
-  
-  .desktop-nav {
-    display: flex;
+
+  .line3 {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
-  
-  .logo-wrapper {
-    height: 90px;
-  }
-  
-  .logo {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .header-nav {
-    gap: 15px;
-  }
-  
-  .nav-button {
-    padding: 9px 16px;
-    font-size: 15px;
+
+  /* Обрезаем кнопки справа */
+  .mobile-nav-button {
+    padding: 15px 15px; /* Уменьшил правый отступ */
+    margin: 0 5px; /* Добавил небольшие отступы по бокам */
+    width: calc(100% - 80px); /* Чуть уже контейнера */
   }
 }
