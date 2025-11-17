@@ -1,6 +1,8 @@
 // src/components/Header/Header.tsx
 import React from 'react';
 import './Header.css';
+import logo_path from '../../assets/logo.png';
+
 
 const Header: React.FC = () => {
   return (
@@ -8,7 +10,7 @@ const Header: React.FC = () => {
       <div className="frame-top"></div>
       <div className="logo-wrapper">
         <a href="/">
-          <img className="logo" src="/sql-analyzer/src/assets/logo.png" alt="Logo" />
+          <img className="logo" src={logo_path} alt="Logo" />
         </a>
       </div>
     </div>

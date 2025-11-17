@@ -9,6 +9,7 @@ import { INDEXES_MOCK } from '../../modules/mock';
 import { useSearchQuery } from '../../store/slices/filtersSlice';
 import type { Index } from '../../modules/IndexesTypes';
 import './IndexesPage.css';
+import file_icon_path from '../../assets/file_icon.svg';
 
 export default function IndexesPage() {
   // const dispatch = useDispatch();
@@ -127,7 +128,7 @@ export default function IndexesPage() {
       <div className="file-icon-wrapper" onClick={handleFileIconClick}>
         <img 
           className="file-icon" 
-          src="/sql-analyzer/src/assets/file_icon.svg" 
+          src={file_icon_path} 
           alt="File" 
         />
         <div className="file-count">0</div>

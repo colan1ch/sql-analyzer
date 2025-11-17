@@ -1,10 +1,12 @@
 // src/mocks/indexesMock.ts
 import type { Index } from './IndexesTypes';
+import path_404 from '../assets/404.png';
+
 
 export const INDEXES_MOCK: Index[] = [
   {
     id: 1,
-    image: "/sql-analyzer/src/assets/404.png",
+    image: path_404,
     name: "Player", 
     description: "Индекс для поиска игроков по\nклубу (частые запросы по\nигрокам определенного клуба)",
     cardinality: "100",
@@ -14,7 +16,7 @@ export const INDEXES_MOCK: Index[] = [
   },
   {
     id: 2,
-    image: "/sql-analyzer/src/assets/404.png",
+    image: path_404,
     name: "Match", 
     description: "Индекс для поиска матчей по\nдате (анализ матчей за\nпериод)",
     cardinality: "85",
@@ -24,7 +26,7 @@ export const INDEXES_MOCK: Index[] = [
   },
   {
     id: 3,
-    image: "/sql-analyzer/src/assets/404.png",
+    image: path_404,
     name: "Coach", 
     description: "Индекс для поиска тренеров по клубу (поиск тренерского штаба)",
     cardinality: "45",

@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setSearchQuery } from '../../store/slices/filtersSlice';
 import './Search.css';
+import search_icon_path from '../../assets/search_icon.svg';
 
 interface SearchProps {
   query: string;
@@ -23,7 +24,7 @@ export default function Search({ query, onSearch }: SearchProps) {
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
-      <img className='search-icon' src="/sql-analyzer/src/assets/search_icon.svg" alt="Search" />
+      <img className='search-icon' src={search_icon_path} alt="Search" />
       <input 
         type="text" 
         className="search-input" 

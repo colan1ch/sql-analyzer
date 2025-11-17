@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import IndexesPage from './pages/IndexesPage/IndexesPage';
 import IndexPage from './pages/IndexPage/IndexPage';
+import { ROUTES } from "./Routes";
 // import { INDEXES_MOCK } from './modules/mock';
 
 function App() {
@@ -17,13 +18,13 @@ function App() {
   return (
     <Router basename={import.meta.env.BASE_URL}>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route 
-          path="/indexes" 
+          path={ROUTES.INDEXES} 
           element={<IndexesPage />} // Убираем пропсы
         />
         <Route 
-          path="/indexes/:id" 
+          path={ROUTES.INDEX} 
           element={<IndexPage />} // Убираем пропсы
         />
       </Routes>
