@@ -23,7 +23,7 @@ export default function Search({ query, onSearch }: SearchProps) {
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
-      <img className='search-icon' src="/src/assets/search_icon.svg" alt="Search" />
+      <img className='search-icon' src="/sql-analyzer/src/assets/search_icon.svg" alt="Search" />
       <input 
         type="text" 
         className="search-input" 

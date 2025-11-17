@@ -4,7 +4,7 @@ import type { Index } from './IndexesTypes';
 export const INDEXES_MOCK: Index[] = [
   {
     id: 1,
-    image: "/src/assets/404.png",
+    image: "/sql-analyzer/src/assets/404.png",
     name: "Player", 
     description: "Индекс для поиска игроков по\nклубу (частые запросы по\nигрокам определенного клуба)",
     cardinality: "100",
@@ -14,7 +14,7 @@ export const INDEXES_MOCK: Index[] = [
   },
   {
     id: 2,
-    image: "/src/assets/404.png",
+    image: "/sql-analyzer/src/assets/404.png",
     name: "Match", 
     description: "Индекс для поиска матчей по\nдате (анализ матчей за\nпериод)",
     cardinality: "85",
@@ -24,7 +24,7 @@ export const INDEXES_MOCK: Index[] = [
   },
   {
     id: 3,
-    image: "/src/assets/404.png",
+    image: "/sql-analyzer/src/assets/404.png",
     name: "Coach", 
     description: "Индекс для поиска тренеров по клубу (поиск тренерского штаба)",
     cardinality: "45",

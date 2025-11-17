@@ -31,6 +31,7 @@ export default function IndexPage() {
           if (mockIndex) {
             setIndex(mockIndex);
             setUseMock(true);
+            useMock;
           }
         }
       })

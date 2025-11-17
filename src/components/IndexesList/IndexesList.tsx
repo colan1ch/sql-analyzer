@@ -6,14 +6,12 @@ import './IndexesList.css';
 
 interface IndexesListProps {
   indexes: Index[];
-  query?: string;
-  onSearch?: (searchQuery: string) => void;
+  // query?: string;
+  // onSearch?: (searchQuery: string) => void;
 }
 
 const IndexesList: React.FC<IndexesListProps> = ({ 
   indexes, 
-  query = '', 
-  onSearch
 }) => {
   return (
     <div className="indexes-list-container">

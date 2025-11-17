@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import IndexesList from '../../components/IndexesList/IndexesList';
@@ -11,7 +11,7 @@ import type { Index } from '../../modules/IndexesTypes';
 import './IndexesPage.css';
 
 export default function IndexesPage() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   
   const searchQuery = useSearchQuery();
   
@@ -127,7 +127,7 @@ export default function IndexesPage() {
       <div className="file-icon-wrapper" onClick={handleFileIconClick}>
         <img 
           className="file-icon" 
-          src="/src/assets/file_icon.svg" 
+          src="/sql-analyzer/src/assets/file_icon.svg" 
           alt="File" 
         />
         <div className="file-count">0</div>

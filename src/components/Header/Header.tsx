@@ -8,7 +8,7 @@ const Header: React.FC = () => {
       <div className="frame-top"></div>
       <div className="logo-wrapper">
         <a href="/">
-          <img className="logo" src="/src/assets/logo.png" alt="Logo" />
+          <img className="logo" src="/sql-analyzer/src/assets/logo.png" alt="Logo" />
         </a>
       </div>
     </div>
