@@ -33,6 +33,7 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: -40px;
+  margin-top: 10px;
 }
 
 .no-indexes {
@@ -87,4 +88,52 @@
   font-size: 16px;
   border: 2px solid #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ... существующие стили ... */
+
+/* Grid контейнер для карточек */
+.indexes-grid-container {
+  width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .main-page .frame {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .search-section {
+    justify-content: center;
+  }
+  
+  .search-form {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .file-icon-wrapper {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 20px auto;
+    flex-direction: row;
+    gap: 15px;
+  }
+  
+  .file-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-page .frame {
+    margin-left: 50px;
+    width: calc(100% - 100px);
+  }
 }

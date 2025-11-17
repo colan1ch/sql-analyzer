@@ -47,3 +47,21 @@
 .breadcrumbs .slash:hover {
   color: var(--additional_color);
 }
+
+/* ... существующие стили ... */
+
+/* Mobile */
+@media (max-width: 767px) {
+  .breadcrumbs {
+    padding: 15px 0 15px 20px;
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .breadcrumbs {
+    padding: 20px 0 20px 50px;
+  }
+}

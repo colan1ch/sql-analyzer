@@ -9,18 +9,19 @@
 
 .home-page .main {
   z-index: 1;
-  margin-top: 185px; /* Увеличиваем отступ из-за хлебных крошек */
+  margin-top: 190px;
   width: 100%;
-  height: 815px;
+  height: auto;
   display: flex;
 }
 
 .home-page .frame {
   display: flex;
   margin-top: 1px;
-  width: 762px;
-  height: 774px;
-  margin-left: 259px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   align-items: center;
   gap: 10px;
@@ -30,75 +31,309 @@
 .home-page .grid-container {
   display: flex;
   flex-direction: column;
-  width: 752px;
-  height: 754px;
-  align-items: flex-start;
-  gap: 40px;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  gap: 60px;
   position: relative;
-  margin-right: -10px;
 }
 
-.welcome-text {
-  position: relative;
-  align-self: stretch;
-  height: auto;
-  margin-top: -1px;
+/* Welcome Section */
+.welcome-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-title {
   font-family: "Public Sans-Regular", Helvetica;
   font-weight: 400;
   color: #000000;
   font-size: 48px;
   letter-spacing: 0;
   line-height: 1.2;
-  white-space: normal;
-}
-
-.description {
-  position: relative;
-  width: 748px;
-  font-family: "Public Sans-Regular", Helvetica;
-  color: #000000;
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.6;
-}
-
-.description p {
   margin-bottom: 20px;
 }
 
-.actions {
-  display: flex;
-  gap: 20px;
-  margin-top: 40px;
+.welcome-subtitle {
+  font-family: "Public Sans-Regular", Helvetica;
+  color: #666;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
-.action-button {
+/* Carousel Section */
+.carousel-section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.carousel-title {
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f8f9fa;
+}
+
+.carousel-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  position: relative;
+}
+
+/* Увеличиваем карточки в карусели */
+.carousel-item .index-card {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Carousel Controls */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(237, 63, 57, 0.9);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-control:hover {
+  background: rgba(211, 47, 47, 1);
+}
+
+.carousel-control.prev {
+  left: 20px;
+}
+
+.carousel-control.next {
+  right: 20px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+  background: #ed3f39;
+}
+
+.indicator:hover {
+  background: rgba(237, 63, 57, 0.7);
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.cta-section p {
+  font-family: "Public Sans-Regular", Helvetica;
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.cta-button {
   padding: 15px 30px;
   background-color: #ed3f39;
-  border-radius: 5px;
-  border: 2px solid #000000;
   color: #ffffff;
+  border: none;
+  border-radius: 8px;
   font-family: "Public Sans-Regular", Helvetica;
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
-.action-button:hover {
-  background-color: #000000;
-  border-color: #ed3f39;
+.cta-button:hover {
+  background-color: #d32f2f;
 }
 
-.action-button.secondary {
-  background-color: #ffffff;
-  color: #000000;
-  border-color: #000000;
+/* Адаптивность */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 36px;
+  }
+  
+  .welcome-subtitle {
+    font-size: 18px;
+  }
+  
+  .carousel {
+    height: 350px;
+  }
+  
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .carousel-control.prev {
+    left: 10px;
+  }
+  
+  .carousel-control.next {
+    right: 10px;
+  }
+  
+  .carousel-item .index-card {
+    transform: scale(1);
+  }
 }
 
-.action-button.secondary:hover {
-  background-color: #000000;
-  color: #ffffff;
-  border-color: #ed3f39;
+/* Добавляем в HomePage.css */
+
+.carousel-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 18px;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.no-indexes-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 18px;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* ... существующие стили ... */
+
+/* Карусель - адаптивность */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .carousel {
+    height: 300px;
+  }
+  
+  .carousel-item .index-card {
+    transform: scale(1); /* Убираем увеличение на мобильных */
+  }
+  
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .carousel-control.prev {
+    left: 10px;
+  }
+  
+  .carousel-control.next {
+    right: 10px;
+  }
+  
+  .welcome-title {
+    font-size: 32px;
+    line-height: 1.3;
+  }
+  
+  .welcome-subtitle {
+    font-size: 18px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .carousel {
+    height: 350px;
+  }
 }

@@ -150,3 +150,63 @@
   color: #ffffff;
   border-color: #ed3f39;
 }
+
+/* ... существующие стили ... */
+
+/* Mobile */
+@media (max-width: 767px) {
+  .product-page .frame {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .product-page .text-wrapper {
+    font-size: 48px;
+    line-height: 1.2;
+    height: auto;
+    white-space: normal;
+  }
+  
+  .product-page .image {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+  }
+  
+  .product-page .div {
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  .index-details {
+    padding: 15px;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .back-button {
+    width: 100%;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .product-page .frame {
+    margin-left: 50px;
+    width: calc(100% - 100px);
+  }
+  
+  .product-page .text-wrapper {
+    font-size: 64px;
+  }
+}
