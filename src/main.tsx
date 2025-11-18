@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import store from './store'
 import App from './APP.tsx'
 import './index.css'
+// import { registerSW } from "virtual:pwa-register";
+
 
 // В самом начале
 const redirect = sessionStorage.redirect;
@@ -19,3 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
   </React.StrictMode>,
 )
+
+// if ("serviceWorker" in navigator) {
+//   registerSW()
+// }

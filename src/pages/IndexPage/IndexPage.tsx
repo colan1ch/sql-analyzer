@@ -29,9 +29,8 @@ export default function IndexPage() {
           // Если API вернул null, используем мок
           const mockIndex = INDEXES_MOCK.find(idx => idx.id === numericId);
           if (mockIndex) {
-            setIndex(mockIndex);
+            setIndex({ ...mockIndex, isMock: true });
             setUseMock(true);
-            useMock;
           }
         }
       })
@@ -39,7 +38,7 @@ export default function IndexPage() {
         // Если ошибка API, используем мок
         const mockIndex = INDEXES_MOCK.find(idx => idx.id === numericId);
         if (mockIndex) {
-          setIndex(mockIndex);
+          setIndex({ ...mockIndex, isMock: true });
           setUseMock(true);
         }
       })
@@ -47,6 +46,19 @@ export default function IndexPage() {
         setLoading(false);
       });
   }, [id]);
+
+  // Функция для получения правильного пути к картинке
+  const getImageSrc = () => {
+    if (!index) return '';
+    
+    if (useMock || index.isMock) {
+      // Для моков - используем как есть
+      return index.image;
+    } else {
+      // Для реальных данных - добавляем префикс
+      return '/images/' + index.image;
+    }
+  };
 
   if (loading) {
     return (
@@ -110,7 +122,7 @@ export default function IndexPage() {
             {index.image ? (
               <img 
                 className="image" 
-                src={'/images/' + index.image} 
+                src={getImageSrc()} 
                 alt={index.name}
                 onError={(e) => {
                   console.error('Failed to load image:', index.image);
@@ -124,36 +136,6 @@ export default function IndexPage() {
             )}
             
             <p className="div">{index.description}</p>
-            
-            {/* <div className="index-details">
-              {index.cardinality && (
-                <div className="detail-item">
-                  <span className="detail-label">Cardinality:</span>
-                  <span className="detail-value">{index.cardinality}</span>
-                </div>
-              )}
-              {index.tableField && (
-                <div className="detail-item">
-                  <span className="detail-label">Table Field:</span>
-                  <span className="detail-value">{index.tableField}</span>
-                </div>
-              )}
-              {index.rowsCount && (
-                <div className="detail-item">
-                  <span className="detail-label">Rows Count:</span>
-                  <span className="detail-value">{index.rowsCount}</span>
-                </div>
-              )}
-            </div>
-
-            <div className="actions">
-              <button 
-                onClick={() => navigate('/indexes')} 
-                className="back-button"
-              >
-                Назад к списку
-              </button>
-            </div> */}
           </div>
         </div>
       </div>
