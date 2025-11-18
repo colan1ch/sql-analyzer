@@ -9,6 +9,17 @@ interface IndexCardProps {
 }
 
 const IndexCard: React.FC<IndexCardProps> = ({ index }) => {
+  // Определяем полный путь к картинке
+  const getImageSrc = () => {
+    if (index.isMock) {
+      // Для моков - используем как есть (уже импортированные или относительные пути)
+      return index.image;
+    } else {
+      // Для реальных данных - добавляем базовый URL
+      return 'http://localhost:9000/sqlanalyzer/' + index.image;
+    }
+  };
+
   return (
     <div className="index-card">
       <Link to={`/indexes/${index.id}`}>
@@ -16,7 +27,11 @@ const IndexCard: React.FC<IndexCardProps> = ({ index }) => {
           <div className="index-name-text">{index.name}</div>
         </div>
         <div className="card-wrapper">
-          <img className="card-image" src={'http://localhost:9000/sqlanalyzer/' + index.image} alt={index.name} />
+          <img 
+            className="card-image" 
+            src={getImageSrc()} 
+            alt={index.name} 
+          />
         </div>
       </Link>
       <p className="index-description">{index.description}</p>

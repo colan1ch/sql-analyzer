@@ -12,7 +12,8 @@ export const INDEXES_MOCK: Index[] = [
     cardinality: "100",
     tableField: "Club_id",
     rowsCount: "1000",
-    is_delete: false
+    is_delete: false,
+    isMock: true // Добавляем флаг
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ export const INDEXES_MOCK: Index[] = [
     cardinality: "85",
     tableField: "date",
     rowsCount: "500",
-    is_delete: false
+    is_delete: false,
+    isMock: true // Добавляем флаг
   },
   {
     id: 3,
@@ -32,7 +34,8 @@ export const INDEXES_MOCK: Index[] = [
     cardinality: "45",
     tableField: "club_id",
     rowsCount: "2000",
-    is_delete: false
+    is_delete: false,
+    isMock: true // Добавляем флаг
   }
 ];
 

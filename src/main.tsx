@@ -5,6 +5,13 @@ import store from './store'
 import App from './APP.tsx'
 import './index.css'
 
+// В самом начале
+const redirect = sessionStorage.redirect;
+delete sessionStorage.redirect;
+if (redirect && redirect != location.pathname) {
+  history.replaceState(null, '', redirect);
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
