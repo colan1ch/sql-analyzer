@@ -16,7 +16,7 @@ const IndexCard: React.FC<IndexCardProps> = ({ index }) => {
       return index.image;
     } else {
       // Для реальных данных - добавляем базовый URL
-      return 'http://192.168.0.17:9000/sqlanalyzer/' + index.image;
+      return 'http://localhost:9000/sqlanalyzer/' + index.image;
     }
   };
 
