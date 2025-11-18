@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:window:allow-start-dragging",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "http:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://localhost:3000" },
+        { "url": "http://localhost:8080" },
+        { "url": "http://192.168.0.17:9000" },
+        { "url": "http://localhost:8080/**" },
+        { "url": "http://192.168.0.17:9000/**" }
+      ]
+    }
+  ]
+}

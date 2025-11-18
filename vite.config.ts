@@ -78,5 +78,5 @@ export default defineConfig({
       }
     })
   ],
-  base: "/sql-analyzer",
+  base: './',
 })

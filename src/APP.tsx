@@ -16,7 +16,7 @@ function App() {
 
   // Убираем фильтрацию здесь, так как IndexesPage сам управляет состоянием
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router>
       <Routes>
         <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route 
