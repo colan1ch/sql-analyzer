@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import IndexesList from '../../components/IndexesList/IndexesList';
 import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
-import { listIndexes } from '../../modules/IndexesApi';
+import { listIndexes, getQueryCart } from '../../modules/IndexesApi';
 import { INDEXES_MOCK } from '../../modules/mock'; 
 import { useSearchQuery } from '../../store/slices/filtersSlice';
 import type { Index } from '../../modules/IndexesTypes';
@@ -19,6 +19,16 @@ export default function IndexesPage() {
   const [indexes, setIndexes] = useState<Index[]>([]);
   const [loading, setLoading] = useState(false);
   const [useMock, setUseMock] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const loadCartCount = async () => {
+      const cart = await getQueryCart();
+      setCartCount(cart.indexes_count);
+    };
+    
+    loadCartCount();
+  }, []);
 
   // Функция поиска (вынесена для переиспользования)
   const performSearch = async (query: string) => {
@@ -131,7 +141,7 @@ export default function IndexesPage() {
           src={file_icon_path} 
           alt="File" 
         />
-        <div className="file-count">0</div>
+        <div className="file-count">{cartCount}</div>
       </div>
       
       <div className="main">

@@ -16,7 +16,7 @@ const IndexCard: React.FC<IndexCardProps> = ({ index }) => {
           <div className="index-name-text">{index.name}</div>
         </div>
         <div className="card-wrapper">
-          <img className="card-image" src={index.image} alt={index.name} />
+          <img className="card-image" src={'http://localhost:9000/sqlanalyzer/' + index.image} alt={index.name} />
         </div>
       </Link>
       <p className="index-description">{index.description}</p>

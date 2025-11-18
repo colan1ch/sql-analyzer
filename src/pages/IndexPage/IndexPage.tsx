@@ -110,7 +110,7 @@ export default function IndexPage() {
             {index.image ? (
               <img 
                 className="image" 
-                src={index.image} 
+                src={'/images/' + index.image} 
                 alt={index.name}
                 onError={(e) => {
                   console.error('Failed to load image:', index.image);
