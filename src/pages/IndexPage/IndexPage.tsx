@@ -56,7 +56,7 @@ export default function IndexPage() {
       return index.image;
     } else {
       // Для реальных данных - добавляем префикс
-      return '/images/' + index.image;
+      return 'http://localhost:9000/sqlanalyzer/' + index.image;
     }
   };
 
