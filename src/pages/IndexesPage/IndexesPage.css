@@ -106,8 +106,6 @@
   width: 100%;
 }
 
-/* Замени мобильные стили в IndexesPage.css */
-
 /* Mobile */
 @media (max-width: 767px) {
   .main-page .main {

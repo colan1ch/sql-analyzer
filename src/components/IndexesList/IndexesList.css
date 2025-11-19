@@ -23,15 +23,15 @@
 .indexes-grid {
   width: 100%;
   display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(3, 1fr); /* Десктоп по умолчанию */
+  gap: 20px; /* отступы 20px */
+  grid-template-columns: repeat(3, 1fr); /* 3 колонки */
 }
 
 /* Mobile: 1 колонка */
 @media (max-width: 767px) {
   .indexes-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: 1fr; /* 1 колонка */
+    gap: 15px; /* отступы 15px */
   }
   
   .not-found-message {
