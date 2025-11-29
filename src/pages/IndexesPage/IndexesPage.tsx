@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import IndexesList from '../../components/IndexesList/IndexesList';
@@ -12,25 +12,31 @@ import './IndexesPage.css';
 import file_icon_path from '../../assets/file_icon.svg';
 
 export default function IndexesPage() {
-  // const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
   const searchQuery = useSearchQuery();
   
   const [indexes, setIndexes] = useState<Index[]>([]);
   const [loading, setLoading] = useState(false);
   const [useMock, setUseMock] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [queryId, setQueryId] = useState<number | null>(null);
+
+  // ✅ Функция для загрузки данных корзины
+  const loadCartData = async () => {
+    const cart = await getQueryCart();
+    setCartCount(cart.indexes_count);
+    setQueryId(cart.id);
+  };
 
   useEffect(() => {
-    const loadCartCount = async () => {
-      const cart = await getQueryCart();
-      setCartCount(cart.indexes_count);
-    };
-    
-    loadCartCount();
+    loadCartData();
   }, []);
 
-  // Функция поиска (вынесена для переиспользования)
+  // ✅ Обработчик когда индекс добавлен
+  const handleIndexAdded = () => {
+    loadCartData();
+  };
+
   const performSearch = async (query: string) => {
     setLoading(true);
     try {
@@ -60,13 +66,11 @@ export default function IndexesPage() {
     }
   };
 
-  // Загрузка данных при монтировании - ТОЛЬКО ПРИ ПЕРВОЙ ЗАГРУЗКЕ
   useEffect(() => {
     const loadInitialData = async () => {
       setLoading(true);
       
       if (useMock) {
-        // Если используем моки, фильтруем их по searchQuery (если есть)
         if (searchQuery) {
           const filteredMock = INDEXES_MOCK.filter(index =>
             index.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -78,14 +82,12 @@ export default function IndexesPage() {
         setLoading(false);
       } else {
         try {
-          // Пытаемся загрузить с API
           const data = await listIndexes(searchQuery ? { name: searchQuery } : undefined);
           
           if (data.length > 0) {
             setIndexes(data);
             setUseMock(false);
           } else {
-            // API вернуло пусто - используем моки
             if (searchQuery) {
               const filteredMock = INDEXES_MOCK.filter(index =>
                 index.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -97,7 +99,6 @@ export default function IndexesPage() {
             setUseMock(true);
           }
         } catch (error) {
-          // Ошибка API - используем моки
           if (searchQuery) {
             const filteredMock = INDEXES_MOCK.filter(index =>
               index.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -114,14 +115,16 @@ export default function IndexesPage() {
     };
 
     loadInitialData();
-  }, []); // Пустой массив зависимостей - запускается только при монтировании
+  }, []);
 
   const handleSearch = () => {
     performSearch(searchQuery);
   };
 
   const handleFileIconClick = () => {
-    console.log('File icon clicked');
+    if (cartCount > 0 && queryId) {
+      navigate(`/query/${queryId}`);
+    }
   };
 
   return (
@@ -134,8 +137,11 @@ export default function IndexesPage() {
         ]}
       />
 
-      {/* File Icon с количеством */}
-      <div className="file-icon-wrapper" onClick={handleFileIconClick}>
+      <div 
+        className={`file-icon-wrapper ${cartCount > 0 ? 'active' : 'disabled'}`}
+        onClick={handleFileIconClick}
+        title={cartCount > 0 ? 'Перейти к запросу' : 'Нет индексов в запросе'}
+      >
         <img 
           className="file-icon" 
           src={file_icon_path} 
@@ -158,7 +164,10 @@ export default function IndexesPage() {
           ) : (
             <div className="indexes-grid-container">
               {indexes.length > 0 ? (
-                <IndexesList indexes={indexes} />
+                <IndexesList 
+                  indexes={indexes}
+                  onIndexAdded={handleIndexAdded}
+                />
               ) : (
                 <div className="no-indexes">
                   {searchQuery 

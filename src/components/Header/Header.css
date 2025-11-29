@@ -66,7 +66,7 @@
 
 .nav-button:hover {
   background-color: rgba(237, 63, 57, 0.9); /* Красный при ховере */
-  border-color: rgba(237, 63, 57, 1);
+  border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(237, 63, 57, 0.3);
   color:white;
@@ -74,7 +74,7 @@
 
 .nav-button-active {
   background-color: rgba(237, 63, 57, 0.9); /* Красный для активной кнопки */
-  border-color: rgba(237, 63, 57, 1);
+  border-color: #000000;
   box-shadow: 0 4px 12px rgba(237, 63, 57, 0.4);
 }
 
@@ -210,5 +210,187 @@
     padding: 15px 15px; /* Уменьшил правый отступ */
     margin: 0 5px; /* Добавил небольшие отступы по бокам */
     width: calc(100% - 80px); /* Чуть уже контейнера */
+  }
+}
+
+/* ...existing code... */
+
+/* Авторизация десктоп */
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.login-button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #000000;
+  background-color: #ed3f39;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #000000;
+  border-color: #ed3f39;
+  color: #ffffff;
+}
+
+.register-button {
+  padding: 10px 20px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #000000;
+  border-color: #ed3f39;
+  color: #ffffff
+}
+
+.logout-button {
+  padding: 10px 20px;
+  margin-right: 5px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #000000;
+  border-color: #ed3f39;
+}
+
+/* Мобильная авторизация */
+.mobile-auth {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.mobile-username {
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  padding: 10px 0;
+}
+
+.mobile-login-button {
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-login-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.mobile-register-button {
+  padding: 10px 15px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #ed3f39;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-register-button:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.mobile-logout-button {
+  padding: 10px 15px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #ed3f39;
+  border-radius: 8px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.mobile-logout-button:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+/* Скрыть десктоп авторизацию на мобиле */
+@media (max-width: 767px) {
+  .desktop-auth {
+    display: none !important;
+  }
+
+  .mobile-auth {
+    display: flex;
+  }
+}
+
+/* Показывать десктоп авторизацию только на десктопе */
+@media (min-width: 768px) {
+  .mobile-auth {
+    display: none !important;
   }
 }

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+import type { RootState } from "../index";
 
 // Тип для состояния фильтров
 export interface FiltersState {
@@ -32,7 +33,7 @@ export const { setSearchQuery, clearFilters } = filtersSlice.actions;
 
 // Хук для использования searchQuery в компонентах
 export const useSearchQuery = () => 
-  useSelector((state: { filters: FiltersState }) => state.filters.searchQuery);
+  useSelector((state: RootState) => state.search.searchQuery);
 
 // Экспортируем reducer
 export default filtersSlice.reducer;

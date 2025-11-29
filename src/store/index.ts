@@ -1,16 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import filtersReducer from "./slices/filtersSlice";
+import { configureStore } from '@reduxjs/toolkit'
+import indexesReducer from './slices/indexesSlice.ts'
+import searchReducer from './slices/filtersSlice.ts'
+import authReducer from './slices/authSlice'
+import queriesReducer from './slices/queriesSlice.ts'
 
-// Создаем и настраиваем store
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    filters: filtersReducer,
+    indexes: indexesReducer,
+    search: searchReducer,
+    auth: authReducer,
+    queries: queriesReducer,
   },
-  // Включаем Redux DevTools в development режиме
-  devTools: true,
-});
+  devTools: true
+})
 
-// Экспортируем типы для TypeScript
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export default store;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

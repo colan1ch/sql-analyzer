@@ -1,4 +1,3 @@
-// src/components/IndexesList/IndexesList.tsx
 import React from 'react';
 import IndexCard from '../IndexCard/IndexCard';
 import type { Index } from '../../modules/IndexesTypes';
@@ -6,12 +5,12 @@ import './IndexesList.css';
 
 interface IndexesListProps {
   indexes: Index[];
-  // query?: string;
-  // onSearch?: (searchQuery: string) => void;
+  onIndexAdded?: () => void;
 }
 
 const IndexesList: React.FC<IndexesListProps> = ({ 
-  indexes, 
+  indexes,
+  onIndexAdded
 }) => {
   return (
     <div className="indexes-list-container">
@@ -23,6 +22,7 @@ const IndexesList: React.FC<IndexesListProps> = ({
             <IndexCard
               key={index.id}
               index={index}
+              onAddSuccess={onIndexAdded}
             />
           ))}
         </div>

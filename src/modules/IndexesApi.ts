@@ -1,7 +1,9 @@
 // src/modules/IndexesApi.ts
 import type { Index } from "./IndexesTypes";
+import { api } from "../api";
 
-const API_BASE_URL = "https://172.20.10.2:3000";
+
+const API_BASE_URL = "https://192.168.0.17:3000";
 
 export async function listIndexes(params?: { name?: string; date_from?: string; date_to?: string }): Promise<Index[]> {
   try {
@@ -33,12 +35,13 @@ export async function getIndex(id: number): Promise<Index | null> {
 
 export async function getQueryCart(): Promise<{ id: number; indexes_count: number }> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/queries/query-cart`, { 
-      headers: { Accept: "application/json" } 
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    const response = await api.queries.queryCartList();
+    return {
+      id: response.data?.id || 0,
+      indexes_count: response.data?.indexes_count || 0
+    };
   } catch (err) {
+    console.error('Error loading query cart:', err);
     return {
       id: -1,
       indexes_count: 0
