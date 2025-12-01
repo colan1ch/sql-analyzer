@@ -43,10 +43,10 @@ const RegisterPage: React.FC = () => {
       return;
     }
 
-    if (formData.password.length < 6) {
-      setValidationError('Пароль должен быть не менее 6 символов');
-      return;
-    }
+    // if (formData.password.length < 6) {
+    //   setValidationError('Пароль должен быть не менее 6 символов');
+    //   return;
+    // }
 
     try {
       await dispatch(registerUser({

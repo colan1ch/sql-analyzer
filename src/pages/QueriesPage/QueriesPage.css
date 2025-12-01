@@ -1,61 +1,143 @@
 .queries-page {
-  background-color: #ffffff;
-  width: 100%;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: #ffffff;
 }
 
-.queries-page .main {
-  z-index: 1;
-  margin-top: 190px;
+.queries-container {
+  margin-top:180px;
+  padding: 20px;
+}
+
+.queries-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.queries-table {
   width: 100%;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 50px;
-}
-
-.queries-page .frame {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
-  gap: 30px;
-  padding: 30px 20px;
-  position: relative;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #000000;
-  flex-wrap: wrap;
-}
-
-.page-title {
+  border-collapse: collapse;
   font-family: "Public Sans-Regular", Helvetica;
-  font-size: 32px;
+}
+
+.queries-table thead {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.queries-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #333333;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.queries-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.queries-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.queries-table td {
+  padding: 15px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.cell-id {
   font-weight: 600;
   color: #000000;
-  margin: 0;
+}
+
+.cell-number {
+  text-align: right;
+  font-family: monospace;
+}
+
+/* Статус бейджи */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* .status-draft {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+}
+
+.status-formed {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #28a745;
+}
+
+.status-in_progress {
+  background-color: #cfe2ff;
+  color: #084298;
+  border: 1px solid #0d6efd;
+}
+
+.status-finished {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #6c757d;
+} */
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #666666;
+}
+
+.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666666;
+}
+
+.empty p {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .create-button {
-  padding: 12px 24px;
   background-color: #ed3f39;
   color: #ffffff;
   border: 2px solid #000000;
-  border-radius: 8px;
-  font-family: "Public Sans-Regular", Helvetica;
+  padding: 10px 20px;
+  border-radius: 5px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;
 }
 
 .create-button:hover {
@@ -63,287 +145,24 @@
   border-color: #ed3f39;
 }
 
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px 20px;
-  border-radius: 8px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 14px;
-  border: 1px solid #f5c6cb;
-}
-
-/* Фильтры */
-.filter-section {
-  display: flex;
-  gap: 15px;
-  padding: 15px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.filter-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.filter-button {
-  padding: 10px 20px;
-  background-color: transparent;
-  color: #000000;
-  border: 2px solid #000000;
-  border-radius: 8px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.filter-button:hover {
-  background-color: #f5f5f5;
-}
-
-.filter-button.active {
-  background-color: #ed3f39;
-  color: #ffffff;
-  border-color: #ed3f39;
-}
-
-/* Пустое состояние */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.empty-icon {
-  font-size: 64px;
-  margin-bottom: 20px;
-}
-
-.empty-state h2 {
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 24px;
-  font-weight: 600;
-  color: #000000;
-  margin-bottom: 10px;
-}
-
-.empty-state p {
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.create-button-secondary {
-  padding: 12px 24px;
-  background-color: #ed3f39;
-  color: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 8px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.create-button-secondary:hover {
-  background-color: #000000;
-  border-color: #ed3f39;
-}
-
-/* Сетка запросов */
-.queries-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.query-card {
-  background-color: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 8px;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.query-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-color: #ed3f39;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.card-title {
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 18px;
-  font-weight: 600;
-  color: #000000;
-  margin: 0;
-}
-
-.status-badge {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.status-badge.draft,
-.status-badge.черновик {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffc107;
-}
-
-.status-badge.completed,
-.status-badge.завершен {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #28a745;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.card-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.card-row:last-child {
-  border-bottom: none;
-}
-
-.card-label {
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 13px;
-  font-weight: 600;
-  color: #666;
-}
-
-.card-value {
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 14px;
-  color: #000000;
-  font-weight: 500;
-}
-
-.card-footer {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.card-button {
-  flex: 1;
-  padding: 10px 16px;
-  background-color: #ed3f39;
-  color: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 6px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.card-button:hover {
-  background-color: #000000;
-  border-color: #ed3f39;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-  font-family: "Public Sans-Regular", Helvetica;
-  font-size: 16px;
-  color: #666;
-}
-
-/* Адаптивность */
 @media (max-width: 768px) {
-  .queries-page .main {
-    margin-top: 140px;
+  .queries-container {
+    padding: 10px;
   }
 
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .page-title {
+  .queries-title {
     font-size: 24px;
+    margin-bottom: 20px;
   }
 
-  .create-button {
-    width: 100%;
-    text-align: center;
-  }
-
-  .queries-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .queries-table th,
+  .queries-table td {
+    padding: 10px;
+    font-size: 12px;
   }
 
   .status-badge {
-    align-self: flex-start;
-  }
-}
-
-@media (max-width: 480px) {
-  .queries-page .frame {
-    padding: 15px 10px;
-    gap: 20px;
-  }
-
-  .page-title {
-    font-size: 20px;
-  }
-
-  .filter-buttons {
-    flex-direction: column;
-  }
-
-  .filter-button {
-    width: 100%;
-  }
-
-  .card-row {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 4px 8px;
+    font-size: 11px;
   }
 }

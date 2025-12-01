@@ -1,68 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
-import IndexCard from '../../components/IndexCard/IndexCard';
-import { listIndexes } from '../../modules/IndexesApi';
-import { INDEXES_MOCK } from '../../modules/mock';
-import type { Index } from '../../modules/IndexesTypes';
 import './HomePage.css';
+import img1_path from '../../assets/img1.png';
+import img2_path from '../../assets/img2.png';
 
 const HomePage: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [featuredIndexes, setFeaturedIndexes] = useState<Index[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [useMock, setUseMock] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [img1_path, img2_path];
 
-  // Загружаем индексы с API или используем моки
+  // ✅ Автоматический переход каждые 5 секунд
   useEffect(() => {
-    if (useMock) {
-      setFeaturedIndexes(INDEXES_MOCK.slice(0, 6));
-      setLoading(false);
-    } else {
-      listIndexes()
-        .then((data) => {
-          if (data.length > 0) {
-            setFeaturedIndexes(data.slice(0, 6));
-            setUseMock(false);
-          } else {
-            setFeaturedIndexes(INDEXES_MOCK.slice(0, 6));
-            setUseMock(true);
-          }
-        })
-        .catch(() => {
-          setFeaturedIndexes(INDEXES_MOCK.slice(0, 6));
-          setUseMock(true);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [useMock]);
-
-  // Автопрокрутка карусели
-  useEffect(() => {
-    if (featuredIndexes.length === 0) return;
-
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % featuredIndexes.length);
-    }, 4000);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [featuredIndexes.length]);
+  }, []);
 
-  const nextSlide = () => {
-    if (featuredIndexes.length === 0) return;
-    setActiveIndex((prev) => (prev + 1) % featuredIndexes.length);
+  const handlePrevious = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  const prevSlide = () => {
-    if (featuredIndexes.length === 0) return;
-    setActiveIndex((prev) => (prev - 1 + featuredIndexes.length) % featuredIndexes.length);
-  };
-
-  const goToSlide = (index: number) => {
-    if (featuredIndexes.length === 0) return;
-    setActiveIndex(index);
+  const handleNext = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   return (
@@ -81,45 +42,34 @@ const HomePage: React.FC = () => {
               </p>
             </div>
 
-            {/* Карусель с карточками индексов */}
-            <div className="carousel-section">
-              <h2 className="carousel-title">Популярные индексы</h2>
-              
-              {loading ? (
-                <div className="carousel-loading">Загрузка индексов...</div>
-              ) : featuredIndexes.length > 0 ? (
-                <div className="carousel">
-                  <div className="carousel-container">
-                    {/* Показываем только активный слайд */}
-                    <div className="carousel-item active">
-                      <IndexCard index={featuredIndexes[activeIndex]} />
-                    </div>
-                  </div>
+            {/* ✅ Карусель с двумя картинками */}
+            <div className="carousel">
+              <button className="carousel-button carousel-button-prev" onClick={handlePrevious}>
+                ‹
+              </button>
 
-                  {/* Кнопки навигации */}
-                  <button className="carousel-control prev" onClick={prevSlide}>
-                    ‹
-                  </button>
-                  <button className="carousel-control next" onClick={nextSlide}>
-                    ›
-                  </button>
+              <div className="carousel-container">
+                <img 
+                  src={images[currentImageIndex]} 
+                  alt="Carousel" 
+                  className="carousel-image"
+                />
+              </div>
 
-                  {/* Индикаторы */}
-                  <div className="carousel-indicators">
-                    {featuredIndexes.map((_, idx) => (
-                      <button
-                        key={idx}
-                        className={`indicator ${idx === activeIndex ? 'active' : ''}`}
-                        onClick={() => goToSlide(idx)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="no-indexes-message">
-                  Индексы временно недоступны
-                </div>
-              )}
+              <button className="carousel-button carousel-button-next" onClick={handleNext}>
+                ›
+              </button>
+
+              {/* Точки навигации */}
+              <div className="carousel-dots">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`carousel-dot ${index === currentImageIndex ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

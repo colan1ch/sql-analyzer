@@ -44,10 +44,10 @@ const ProfilePage: React.FC = () => {
       return;
     }
 
-    if (formData.newPassword.length < 6) {
-      setError('Пароль должен быть не менее 6 символов');
-      return;
-    }
+    // if (formData.newPassword.length < 6) {
+    //   setError('Пароль должен быть не менее 6 символов');
+    //   return;
+    // }
 
     setLoading(true);
     try {
@@ -163,17 +163,6 @@ const ProfilePage: React.FC = () => {
                     {loading ? 'Загрузка...' : 'Изменить пароль'}
                   </button>
                 </form>
-              </div>
-
-              {/* Опасная зона */}
-              <div className="profile-section danger-zone">
-                <h2 className="section-title">Опасная зона</h2>
-                <p className="section-description">
-                  Эти действия необратимы. Будьте осторожны!
-                </p>
-                <button className="danger-button">
-                  Удалить аккаунт
-                </button>
               </div>
             </div>
           </div>

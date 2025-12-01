@@ -59,6 +59,36 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+// ✅ НОВАЯ ФУНКЦИЯ - проверка валидности токена при загрузке
+export const checkAuth = createAsyncThunk(
+  'auth/checkAuth',
+  async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem('token');
+    
+    // Если токена нет - пользователь не авторизован
+    if (!token) {
+      return null;
+    }
+
+    try {
+      // Пытаемся получить профиль пользователя
+      // Используем любой защищённый endpoint для проверки токена
+      const response = await api.queries.queriesList();
+      
+      // Если успешно получили ответ - токен валидный
+      return { success: true };
+    } catch (error: any) {
+      // Если ошибка 401 или другая - токен невалидный
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        return null;
+      }
+      return rejectWithValue('Ошибка проверки авторизации');
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -101,6 +131,26 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.payload as string;
+      })
+      // ✅ ОБРАБОТЧИКИ для checkAuth
+      .addCase(checkAuth.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.loading = false;
+        if (!action.payload) {
+          // Токен невалидный
+          state.isAuthenticated = false;
+          state.username = '';
+        }
+        // Если валидный - ничего не меняем, оставляем текущее состояние
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.username = '';
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
       });
   },
 });
