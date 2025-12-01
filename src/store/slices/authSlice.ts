@@ -74,7 +74,7 @@ export const checkAuth = createAsyncThunk(
       // Пытаемся получить профиль пользователя
       // Используем любой защищённый endpoint для проверки токена
       const response = await api.queries.queriesList();
-      
+      response;
       // Если успешно получили ответ - токен валидный
       return { success: true };
     } catch (error: any) {

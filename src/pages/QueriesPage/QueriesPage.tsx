@@ -82,9 +82,9 @@ const QueriesPage: React.FC = () => {
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, string> = {
       'draft': 'Черновик',
-      'formed': 'Сформирована',
-      'rejected': 'Отклонена',
-      'completed': 'Завершена',
+      'formed': 'Сформирован',
+      'rejected': 'Отклонен',
+      'completed': 'Завершен',
     };
     return statusMap[status] || status;
   };
@@ -134,9 +134,9 @@ const QueriesPage: React.FC = () => {
                       {/* <th>ID</th> */}
                       <th>Дата запроса</th>
                       <th>Статус</th>
-                      <th>Создана</th>
-                      <th>Оформлена</th>
-                      <th>Завершена</th>
+                      <th>Создан</th>
+                      <th>Сформирован</th>
+                      <th>Завершен</th>
                       <th>Автор</th>
                       <th>Модератор</th>
                       <th>Время выполнения</th>

@@ -403,3 +403,99 @@
     display: none;
   }
 }
+
+/* Поле даты запроса в шапке */
+.date-query-edit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cardinality-label {
+  color: #000000;
+  white-space: nowrap;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.date-query-input {
+  width: 130px;
+  text-align: center;
+}
+
+.saving-hint {
+  font-size: 12px;
+  color: #ed3f39;
+  font-weight: 500;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Адаптивность для шапки */
+@media (max-width: 768px) {
+  .date-query-edit {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .date-query-input {
+    width: 100%;
+    max-width: 160px;
+  }
+  .cardinality-wrapper {
+    gap: 20px;
+    padding: 16px 20px;
+  }
+}
+
+/* ...existing code... */
+
+.cardinality {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 16px;
+  color: #333333;
+}
+
+.cardinality label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.input-date-query {
+  padding: 8px 12px;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-date-query:hover:not(:disabled) {
+  border-color: #ed3f39;
+}
+
+.input-date-query:focus {
+  outline: none;
+  border-color: #ed3f39;
+  box-shadow: 0 0 0 3px rgba(237, 63, 57, 0.1);
+}
+
+.input-date-query:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
+
+/* ...rest of existing code... */

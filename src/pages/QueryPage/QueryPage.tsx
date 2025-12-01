@@ -63,6 +63,10 @@ const QueryPage: React.FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [savingIndexId, setSavingIndexId] = useState<number | null>(null);
+  
+  // ✅ Поля для редактирования даты запроса
+  const [dateQuery, setDateQuery] = useState<string>('');
+  const [isSavingDate, setIsSavingDate] = useState(false);
 
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -75,6 +79,14 @@ const QueryPage: React.FC = () => {
       dispatch(getQueryDetail(parseInt(id)));
     }
   }, [id, dispatch, refreshTrigger]);
+
+  // ✅ Обновляем поле даты при загрузке запроса
+  useEffect(() => {
+    if (queryDetail) {
+      const typedDetail = queryDetail as unknown as QueryDetailResponse;
+      setDateQuery(typedDetail.query.date_query || '');
+    }
+  }, [queryDetail]);
 
   // Мержим индексы с данными из indexesQuery
   const queryIndexes = useMemo(() => {
@@ -139,7 +151,27 @@ const QueryPage: React.FC = () => {
     }));
   };
 
-  // ...existing code...
+  // ✅ Сохранение даты запроса
+  const handleSaveDateQuery = async () => {
+    if (!queryDetail || !dateQuery) return;
+
+    const typedDetail = queryDetail as unknown as QueryDetailResponse;
+    setIsSavingDate(true);
+
+    try {
+      await api.queries.changeQueryUpdate(typedDetail.query.id, {
+        date_query: dateQuery,
+      } as any);
+
+      // Перезагружаем данные
+      setRefreshTrigger(prev => prev + 1);
+    } catch (err) {
+      console.error('Error saving date:', err);
+      alert('Ошибка сохранения даты');
+    } finally {
+      setIsSavingDate(false);
+    }
+  };
 
   // ✅ Сохранение данных в БД через API
   const handleSaveIndexData = async (indexId: number) => {
@@ -179,8 +211,6 @@ const QueryPage: React.FC = () => {
       setSavingIndexId(null);
     }
   };
-
-
 
   const handleRemoveIndex = async (indexId: number) => {
     if (queryDetail) {
@@ -269,6 +299,24 @@ const QueryPage: React.FC = () => {
 
       {/* Информация о запросе */}
       <div className="cardinality-wrapper">
+        {/* ✅ НОВОЕ ПОЛЕ - Дата запроса */}
+        <div className="cardinality date-query-field">
+          <label htmlFor="date-query">Дата запроса:</label>
+          <input
+            id="date-query"
+            type="date"
+            className="input-date-query"
+            value={dateQuery}
+            onChange={(e) => setDateQuery(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleSaveDateQuery();
+              }
+            }}
+            disabled={!isDraft || isSavingDate}
+          />
+        </div>
+
         <div className="cardinality">
           Время выполнения: {typedDetail.query.execution_time || 0}мс
         </div>
