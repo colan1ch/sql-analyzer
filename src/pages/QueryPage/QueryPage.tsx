@@ -237,7 +237,7 @@ const QueryPage: React.FC = () => {
   };
 
   const handleDeleteQuery = async () => {
-    if (queryDetail && window.confirm('Вы уверены, что хотите удалить эту заявку?')) {
+    if (queryDetail) {
       setIsDeleting(true);
       const typedDetail = queryDetail as unknown as QueryDetailResponse;
       try {

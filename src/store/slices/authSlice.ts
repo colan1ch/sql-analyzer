@@ -59,26 +59,20 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
-// ✅ НОВАЯ ФУНКЦИЯ - проверка валидности токена при загрузке
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
   async (_, { rejectWithValue }) => {
     const token = localStorage.getItem('token');
     
-    // Если токена нет - пользователь не авторизован
     if (!token) {
       return null;
     }
 
     try {
-      // Пытаемся получить профиль пользователя
-      // Используем любой защищённый endpoint для проверки токена
       const response = await api.queries.queriesList();
       response;
-      // Если успешно получили ответ - токен валидный
       return { success: true };
     } catch (error: any) {
-      // Если ошибка 401 или другая - токен невалидный
       if (error.response?.status === 401 || error.response?.status === 403) {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
