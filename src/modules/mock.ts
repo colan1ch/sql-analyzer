@@ -13,7 +13,7 @@ export const INDEXES_MOCK: Index[] = [
     tableField: "Club_id",
     rowsCount: "1000",
     is_delete: false,
-    isMock: true // Добавляем флаг
+    isMock: true 
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ export const INDEXES_MOCK: Index[] = [
     tableField: "date",
     rowsCount: "500",
     is_delete: false,
-    isMock: true // Добавляем флаг
+    isMock: true 
   },
   {
     id: 3,
@@ -35,21 +35,6 @@ export const INDEXES_MOCK: Index[] = [
     tableField: "club_id",
     rowsCount: "2000",
     is_delete: false,
-    isMock: true // Добавляем флаг
+    isMock: true
   }
 ];
-
-// export const QUERY_INDEXES_MOCK = INDEXES_MOCK.map((index, i) => ({
-//   ...index,
-//   positionInQuery: i + 1,
-//   cardinality: index.cardinality || "0",
-//   tableField: index.tableField || "",
-//   rowsCount: index.rowsCount || "0",
-//   recievedRows: (parseInt(index.rowsCount || "0") * 0.1).toString()
-// }));
-
-// export const QUERY_MOCK = {
-//   queryID: 1,
-//   executionTime: "150",
-//   receivedRows: "152"
-// };

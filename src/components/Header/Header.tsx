@@ -36,7 +36,6 @@ const Header: React.FC = () => {
           <img className="logo" src={logo_path} alt="Logo" />
         </a>
         
-        {/* Десктопная навигация */}
         <nav className="header-nav desktop-nav">
           <Link 
             to="/" 
@@ -69,7 +68,6 @@ const Header: React.FC = () => {
           )}
         </nav>
 
-        {/* Авторизация/Профиль десктоп */}
         <div className="header-auth desktop-auth">
           {isAuthenticated ? (
             <div className="user-menu">
@@ -90,14 +88,12 @@ const Header: React.FC = () => {
           )}
         </div>
 
-        {/* Мобильная кнопка бургер-меню */}
         <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>
           <div className={`burger-line ${isMobileMenuOpen ? 'line1' : ''}`}></div>
           <div className={`burger-line ${isMobileMenuOpen ? 'line2' : ''}`}></div>
           <div className={`burger-line ${isMobileMenuOpen ? 'line3' : ''}`}></div>
         </div>
 
-        {/* Мобильное меню */}
         <nav className={`mobile-nav ${isMobileMenuOpen ? 'mobile-nav-open' : ''}`}>
           <Link 
             to="/" 
@@ -133,7 +129,6 @@ const Header: React.FC = () => {
             </>
           )}
 
-          {/* Авторизация мобиль */}
           <div className="mobile-auth">
             {isAuthenticated ? (
               <>

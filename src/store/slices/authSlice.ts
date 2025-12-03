@@ -132,18 +132,15 @@ const authSlice = createSlice({
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.payload as string;
       })
-      // ✅ ОБРАБОТЧИКИ для checkAuth
       .addCase(checkAuth.pending, (state) => {
         state.loading = true;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.loading = false;
         if (!action.payload) {
-          // Токен невалидный
           state.isAuthenticated = false;
           state.username = '';
         }
-        // Если валидный - ничего не меняем, оставляем текущее состояние
       })
       .addCase(checkAuth.rejected, (state) => {
         state.loading = false;

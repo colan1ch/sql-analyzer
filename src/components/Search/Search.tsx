@@ -18,7 +18,6 @@ export default function Search({ query, onSearch }: SearchProps) {
   };
 
   const handleQueryChange = (newQuery: string) => {
-    // Диспатчим action для обновления searchQuery в Redux
     dispatch(setSearchQuery(newQuery));
   };
 

@@ -21,7 +21,6 @@ export default function IndexesPage() {
   const [cartCount, setCartCount] = useState(0);
   const [queryId, setQueryId] = useState<number | null>(null);
 
-  // ✅ Функция для загрузки данных корзины
   const loadCartData = async () => {
     const cart = await getQueryCart();
     setCartCount(cart.indexes_count);
@@ -32,7 +31,6 @@ export default function IndexesPage() {
     loadCartData();
   }, []);
 
-  // ✅ Обработчик когда индекс добавлен
   const handleIndexAdded = () => {
     loadCartData();
   };

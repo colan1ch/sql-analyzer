@@ -26,7 +26,6 @@ export default function IndexPage() {
           setIndex(data);
           setUseMock(false);
         } else {
-          // Если API вернул null, используем мок
           const mockIndex = INDEXES_MOCK.find(idx => idx.id === numericId);
           if (mockIndex) {
             setIndex({ ...mockIndex, isMock: true });
@@ -35,7 +34,6 @@ export default function IndexPage() {
         }
       })
       .catch(() => {
-        // Если ошибка API, используем мок
         const mockIndex = INDEXES_MOCK.find(idx => idx.id === numericId);
         if (mockIndex) {
           setIndex({ ...mockIndex, isMock: true });
@@ -47,15 +45,12 @@ export default function IndexPage() {
       });
   }, [id]);
 
-  // Функция для получения правильного пути к картинке
   const getImageSrc = () => {
     if (!index) return '';
     
     if (useMock || index.isMock) {
-      // Для моков - используем как есть
       return index.image;
     } else {
-      // Для реальных данных - добавляем префикс
       return 'http://localhost:9000/sqlanalyzer/' + index.image;
     }
   };

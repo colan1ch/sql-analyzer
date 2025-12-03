@@ -51,7 +51,6 @@ const ProfilePage: React.FC = () => {
 
     setLoading(true);
     try {
-      // TODO: Добавить API запрос для смены пароля
       setMessage('Пароль успешно изменён');
       setFormData({
         currentPassword: '',
@@ -82,7 +81,6 @@ const ProfilePage: React.FC = () => {
             </div>
 
             <div className="profile-content">
-              {/* Информация профиля */}
               <div className="profile-section">
                 <h2 className="section-title">Информация профиля</h2>
                 <div className="profile-info">
@@ -93,7 +91,6 @@ const ProfilePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Смена пароля */}
               <div className="profile-section">
                 <h2 className="section-title">Смена пароля</h2>
                 

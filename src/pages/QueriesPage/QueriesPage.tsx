@@ -33,7 +33,6 @@ const QueriesPage: React.FC = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  // ✅ Загружаем все заявки пользователя
   useEffect(() => {
     const loadQueries = async () => {
       setLoading(true);
@@ -54,7 +53,6 @@ const QueriesPage: React.FC = () => {
     }
   }, [isAuthenticated]);
 
-  // Форматирование даты
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '-';
     const date = new Date(dateString);
@@ -65,7 +63,6 @@ const QueriesPage: React.FC = () => {
     });
   };
 
-  // Форматирование времени создания
   const formatDateTime = (dateString: string | null) => {
     if (!dateString) return '-';
     const date = new Date(dateString);
@@ -78,7 +75,6 @@ const QueriesPage: React.FC = () => {
     });
   };
 
-  // Статус бейдж
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, string> = {
       'draft': 'Черновик',
@@ -90,7 +86,6 @@ const QueriesPage: React.FC = () => {
   };
 
   const handleRowClick = (queryId: number, status: string) => {
-    // Черновики открываем в редакторе, остальные в просмотре
     if (status === 'draft' || status === 'черновик') {
       navigate(`/query/${queryId}`);
     } else {

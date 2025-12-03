@@ -17,7 +17,6 @@ const LoginPage: React.FC = () => {
     password: '',
   });
 
-  // Если уже авторизован, редирект на главную
   React.useEffect(() => {
     if (isAuthenticated) {
       navigate('/');

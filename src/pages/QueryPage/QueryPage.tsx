@@ -64,7 +64,6 @@ const QueryPage: React.FC = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [savingIndexId, setSavingIndexId] = useState<number | null>(null);
   
-  // ✅ Поля для редактирования даты запроса
   const [dateQuery, setDateQuery] = useState<string>('');
   const [isSavingDate, setIsSavingDate] = useState(false);
 
@@ -80,7 +79,6 @@ const QueryPage: React.FC = () => {
     }
   }, [id, dispatch, refreshTrigger]);
 
-  // ✅ Обновляем поле даты при загрузке запроса
   useEffect(() => {
     if (queryDetail) {
       const typedDetail = queryDetail as unknown as QueryDetailResponse;
@@ -88,7 +86,6 @@ const QueryPage: React.FC = () => {
     }
   }, [queryDetail]);
 
-  // Мержим индексы с данными из indexesQuery
   const queryIndexes = useMemo(() => {
     if (!queryDetail) return [];
 
@@ -151,7 +148,6 @@ const QueryPage: React.FC = () => {
     }));
   };
 
-  // ✅ Сохранение даты запроса
   const handleSaveDateQuery = async () => {
     if (!queryDetail || !dateQuery) return;
 
@@ -163,7 +159,6 @@ const QueryPage: React.FC = () => {
         date_query: dateQuery,
       } as any);
 
-      // Перезагружаем данные
       setRefreshTrigger(prev => prev + 1);
     } catch (err) {
       console.error('Error saving date:', err);
@@ -173,7 +168,6 @@ const QueryPage: React.FC = () => {
     }
   };
 
-  // ✅ Сохранение данных в БД через API
   const handleSaveIndexData = async (indexId: number) => {
     if (!queryDetail) return;
 
@@ -195,10 +189,8 @@ const QueryPage: React.FC = () => {
         }
       );
 
-      // После успешного сохранения перезагружаем данные
       setRefreshTrigger(prev => prev + 1);
       
-      // Очищаем edited данные для этого индекса
       setEditingIndexes(prev => {
         const newEditing = { ...prev };
         delete newEditing[indexId];
@@ -289,7 +281,6 @@ const QueryPage: React.FC = () => {
         { label: `Запрос #${typedDetail.query.id}` }
       ]} />
 
-      {/* Легенда - фиксированная */}
       <div className="frame-5"></div>
       <div className="logo-no-bg-preview-wrapper">
         <a href="/">
@@ -297,9 +288,7 @@ const QueryPage: React.FC = () => {
         </a>
       </div>
 
-      {/* Информация о запросе */}
       <div className="cardinality-wrapper">
-        {/* ✅ НОВОЕ ПОЛЕ - Дата запроса */}
         <div className="cardinality date-query-field">
           <label htmlFor="date-query">Дата запроса:</label>
           <input
@@ -335,7 +324,6 @@ const QueryPage: React.FC = () => {
         )}
       </div>
 
-      {/* Шапка таблицы */}
       <div className="frame-6-wrapper">
         <div className="frame-6">
           <div className="header-col header-col-1">Индекс</div>
@@ -353,7 +341,6 @@ const QueryPage: React.FC = () => {
             {queryIndexes && queryIndexes.length > 0 ? (
               queryIndexes.map((index: MergedIndex, idx: number) => (
                 <div key={`${index.id}-${idx}`} className="query-row">
-                  {/* Колонка 1: Изображение и название */}
                   <div className="row-col row-col-1">
                     {index.image && (
                       <img 
@@ -368,7 +355,6 @@ const QueryPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Колонка 2: Поле таблицы */}
                   <div className="row-col row-col-2">
                     <input
                       type="text"
@@ -385,7 +371,6 @@ const QueryPage: React.FC = () => {
                     />
                   </div>
 
-                  {/* Колонка 3: Cardinality */}
                   <div className="row-col row-col-3">
                     <input
                       type="text"
@@ -402,7 +387,6 @@ const QueryPage: React.FC = () => {
                     />
                   </div>
 
-                  {/* Колонка 4: Кол-во строк в таблице */}
                   <div className="row-col row-col-4">
                     <input
                       type="text"
@@ -419,12 +403,10 @@ const QueryPage: React.FC = () => {
                     />
                   </div>
 
-                  {/* Колонка 5: Полученных строк */}
                   <div className="row-col row-col-5">
                     <span className="row-value">{index.received_rows !== undefined ? index.received_rows : 0}</span>
                   </div>
 
-                  {/* Колонка 6: Действия */}
                   <div className="row-col row-col-6">
                     <a href={`/sql-analyzer/indexes/${index.id}`} className="detail-button" title="Подробнее">
                       Подробнее

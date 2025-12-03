@@ -9,5 +9,5 @@ export interface Index {
   rowsCount?: string;
   recievedRows?: string;
   is_delete: boolean;
-  isMock?: boolean; // Добавляем флаг
+  isMock?: boolean;
 }

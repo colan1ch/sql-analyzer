@@ -9,7 +9,6 @@ const HomePage: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [img1_path, img2_path];
 
-  // ✅ Автоматический переход каждые 5 секунд
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -42,7 +41,6 @@ const HomePage: React.FC = () => {
               </p>
             </div>
 
-            {/* ✅ Карусель с двумя картинками */}
             <div className="carousel">
               <button className="carousel-button carousel-button-prev" onClick={handlePrevious}>
                 ‹
@@ -60,7 +58,6 @@ const HomePage: React.FC = () => {
                 ›
               </button>
 
-              {/* Точки навигации */}
               <div className="carousel-dots">
                 {images.map((_, index) => (
                   <button

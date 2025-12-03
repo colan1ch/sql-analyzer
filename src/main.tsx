@@ -8,7 +8,6 @@ import './index.css'
 import { clearAuth } from './store/slices/authSlice'
 
 
-// ✅ Проверяем авторизацию при загрузке приложения
 // store.dispatch(checkAuth() as any)
 
 localStorage.removeItem('token')
