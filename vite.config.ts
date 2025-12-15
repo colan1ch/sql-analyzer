@@ -14,7 +14,7 @@ export default defineConfig({
         changeOrigin: true,
       },
       "/images": {  // Прокси для картинок
-        target: "http://172.20.10.2:9000",
+        target: "http://192.168.0.17:9000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/images/, "/sqlanalyzer"),
       }
