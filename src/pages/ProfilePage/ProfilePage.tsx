@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from '../../components/Header/Header';
 import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
+import { api } from '../../api';
 import type { RootState } from '../../store';
 import './ProfilePage.css';
 
@@ -39,18 +40,22 @@ const ProfilePage: React.FC = () => {
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!formData.currentPassword || !formData.newPassword) {
+      setError('Заполните все поля');
+      return;
+    }
+
     if (formData.newPassword !== formData.confirmPassword) {
       setError('Новые пароли не совпадают');
       return;
     }
 
-    // if (formData.newPassword.length < 6) {
-    //   setError('Пароль должен быть не менее 6 символов');
-    //   return;
-    // }
-
     setLoading(true);
     try {
+      await api.users.profileUpdate(username!, {
+        password: formData.newPassword,
+      });
+      
       setMessage('Пароль успешно изменён');
       setFormData({
         currentPassword: '',
@@ -58,8 +63,9 @@ const ProfilePage: React.FC = () => {
         confirmPassword: '',
       });
       setTimeout(() => setMessage(''), 3000);
-    } catch (err) {
-      setError('Ошибка при изменении пароля');
+    } catch (err: any) {
+      console.error('Error changing password:', err);
+      setError(err.response?.data?.message || 'Ошибка при изменении пароля');
     } finally {
       setLoading(false);
     }

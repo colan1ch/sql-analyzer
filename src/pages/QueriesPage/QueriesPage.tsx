@@ -19,6 +19,12 @@ interface QueryItem {
   execution_time: number;
 }
 
+interface FilterParams {
+  fromDate: string | null;
+  toDate: string | null;
+  status: string | null;
+}
+
 const QueriesPage: React.FC = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -26,6 +32,11 @@ const QueriesPage: React.FC = () => {
   const [queries, setQueries] = useState<QueryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<FilterParams>({
+    fromDate: null,
+    toDate: null,
+    status: null,
+  });
 
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -33,21 +44,28 @@ const QueriesPage: React.FC = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {
-    const loadQueries = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await api.queries.queriesList();
-        setQueries((response.data || []) as QueryItem[]);
-      } catch (err: any) {
-        console.error('Error loading queries:', err);
-        setError('Ошибка при загрузке заявок');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const loadQueries = async (filterParams?: FilterParams) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const params = filterParams || filters;
+      const query: any = {};
+      
+      if (params.fromDate) query['from-date'] = params.fromDate;
+      if (params.toDate) query['to-date'] = params.toDate;
+      if (params.status) query.status = params.status;
+      
+      const response = await api.queries.queriesList(query);
+      setQueries((response.data || []) as QueryItem[]);
+    } catch (err: any) {
+      console.error('Error loading queries:', err);
+      setError('Ошибка при загрузке заявок');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (isAuthenticated) {
       loadQueries();
     }
@@ -85,17 +103,49 @@ const QueriesPage: React.FC = () => {
     return statusMap[status] || status;
   };
 
-  const handleRowClick = (queryId: number, status: string) => {
-    if (status === 'draft' || status === 'черновик') {
-      navigate(`/query/${queryId}`);
-    } else {
-      navigate(`/query/${queryId}`);
-    }
+  const getStatusColor = (status: string) => {
+    const colorMap: Record<string, string> = {
+      'formed': '#d4edda',
+      'rejected': '#f8d7da',
+      'completed': '#d1ecf1',
+    };
+    return colorMap[status] || '#f5f5f5';
   };
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  const handleRowClick = (queryId: number) => {
+    navigate(`/query/${queryId}`);
+  };
+
+  const handleDateFilterChange = (e: React.ChangeEvent<HTMLInputElement>, filterType: 'fromDate' | 'toDate') => {
+    const newFilters = { ...filters, [filterType]: e.target.value || null };
+    setFilters(newFilters);
+  };
+
+  const handleStatusFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newFilters = { ...filters, status: e.target.value || null };
+    setFilters(newFilters);
+  };
+
+  const handleApplyFilters = () => {
+    loadQueries(filters);
+  };
+
+  const handleTodayFilter = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const newFilters = {
+      ...filters,
+      fromDate: today,
+      toDate: today,
+    };
+    setFilters(newFilters);
+    loadQueries(newFilters);
+  };
+
+  const handleResetFilters = () => {
+    const newFilters = { fromDate: null, toDate: null, status: null };
+    setFilters(newFilters);
+    loadQueries(newFilters);
+  };
 
   return (
     <div className="queries-page">
@@ -106,6 +156,60 @@ const QueriesPage: React.FC = () => {
         <div className="frame">
           <div className="queries-container">
             <h1 className="queries-title">Мои запросы</h1>
+
+            {/* Фильтры */}
+            <div className="filters-section">
+              <div className="filters-row">
+                <div className="filter-group">
+                  <label htmlFor="from-date">От даты:</label>
+                  <input
+                    id="from-date"
+                    type="date"
+                    value={filters.fromDate || ''}
+                    onChange={(e) => handleDateFilterChange(e, 'fromDate')}
+                    className="filter-input"
+                  />
+                </div>
+
+                <div className="filter-group">
+                  <label htmlFor="to-date">До даты:</label>
+                  <input
+                    id="to-date"
+                    type="date"
+                    value={filters.toDate || ''}
+                    onChange={(e) => handleDateFilterChange(e, 'toDate')}
+                    className="filter-input"
+                  />
+                </div>
+
+                <div className="filter-group">
+                  <label htmlFor="status">Статус:</label>
+                  <select
+                    id="status"
+                    value={filters.status || ''}
+                    onChange={handleStatusFilterChange}
+                    className="filter-input"
+                  >
+                    <option value="">Все статусы</option>
+                    <option value="formed">Сформирован</option>
+                    <option value="completed">Завершен</option>
+                    <option value="rejected">Отклонен</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="filters-actions">
+                <button className="logout-button" onClick={handleApplyFilters}>
+                  Применить
+                </button>
+                <button className="logout-button" onClick={handleTodayFilter}>
+                  За сегодня
+                </button>
+                <button className="logout-button" onClick={handleResetFilters}>
+                  Очистить
+                </button>
+              </div>
+            </div>
 
             {loading ? (
               <div className="loading">Загрузка...</div>
@@ -122,45 +226,60 @@ const QueriesPage: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="table-wrapper">
-                <table className="queries-table">
-                  <thead>
-                    <tr>
-                      {/* <th>ID</th> */}
-                      <th>Дата запроса</th>
-                      <th>Статус</th>
-                      <th>Создан</th>
-                      <th>Сформирован</th>
-                      <th>Завершен</th>
-                      <th>Автор</th>
-                      <th>Модератор</th>
-                      <th>Время выполнения</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {queries.map((query) => (
-                      <tr 
-                        key={query.id}
-                        className="query-row"
-                        onClick={() => handleRowClick(query.id, query.status)}
-                      >
-                        {/* <td className="cell-id">#{query.id}</td> */}
-                        <td>{formatDate(query.date_query)}</td>
-                        <td>
-                          <span className={`status-badge status-${query.status}`}>
-                            {getStatusBadge(query.status)}
-                          </span>
-                        </td>
-                        <td>{formatDateTime(query.date_create)}</td>
-                        <td>{formatDateTime(query.date_form)}</td>
-                        <td>{formatDateTime(query.date_finish)}</td>
-                        <td>{query.creator_login}</td>
-                        <td>{query.moderator_login || '-'}</td>
-                        <td className="cell-number">{query.execution_time}ms</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="cards-grid">
+                {queries.map((query) => (
+                  <div
+                    key={query.id}
+                    className="query-card"
+                    style={{ borderLeft: `4px solid ${getStatusColor(query.status)}` }}
+                    onClick={() => handleRowClick(query.id)}
+                  >
+                    <div className="card-header">
+                      <span className={`status-badge status-${query.status}`}>
+                        {getStatusBadge(query.status)}
+                      </span>
+                      {/* <span className="card-id">#{query.id}</span> */}
+                    </div>
+
+                    <div className="card-content">
+                      <div className="card-row">
+                        <span className="label">Дата запроса:</span>
+                        <span className="value">{formatDate(query.date_query)}</span>
+                      </div>
+                      <div className="card-row">
+                        <span className="label">Создан:</span>
+                        <span className="value">{formatDateTime(query.date_create)}</span>
+                      </div>
+                      <div className="card-row">
+                        <span className="label">Сформирован:</span>
+                        <span className="value">{formatDateTime(query.date_form)}</span>
+                      </div>
+                      {query.date_finish && (
+                        <div className="card-row">
+                          <span className="label">Завершен:</span>
+                          <span className="value">{formatDateTime(query.date_finish)}</span>
+                        </div>
+                      )}
+                      <div className="card-row">
+                        <span className="label">Время выполнения:</span>
+                        <span className="value">{query.execution_time}ms</span>
+                      </div>
+                    </div>
+
+                    <div className="card-footer">
+                      <div className="card-user">
+                        <span className="label">Автор:</span>
+                        <span className="value">{query.creator_login}</span>
+                      </div>
+                      {query.moderator_login && (
+                        <div className="card-user">
+                          <span className="label">Модератор:</span>
+                          <span className="value">{query.moderator_login}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
