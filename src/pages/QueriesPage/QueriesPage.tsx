@@ -147,6 +147,21 @@ const QueriesPage: React.FC = () => {
     loadQueries(newFilters);
   };
 
+  const handleFinishQuery = async (queryId: number, status: 'completed' | 'rejected') => {
+    try {
+      setLoading(true);
+      await api.queries.finishUpdate(queryId, { status });
+      // Перезагрузить список запросов после успешного обновления
+      loadQueries();
+      setError(null);
+    } catch (err: any) {
+      console.error('Error updating query status:', err);
+      setError(`Ошибка при ${status === 'completed' ? 'одобрении' : 'отклонении'} заявки`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="queries-page">
       <Header />
@@ -232,16 +247,39 @@ const QueriesPage: React.FC = () => {
                     key={query.id}
                     className="query-card"
                     style={{ borderLeft: `4px solid ${getStatusColor(query.status)}` }}
-                    onClick={() => handleRowClick(query.id)}
                   >
                     <div className="card-header">
                       <span className={`status-badge status-${query.status}`}>
                         {getStatusBadge(query.status)}
                       </span>
-                      {/* <span className="card-id">#{query.id}</span> */}
+                      {query.status === 'formed' && (
+                        <div className="card-actions">
+                          <button
+                            className="action-button action-approve"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleFinishQuery(query.id, 'completed');
+                            }}
+                          >
+                            Одобрить
+                          </button>
+                          <button
+                            className="action-button action-reject"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleFinishQuery(query.id, 'rejected');
+                            }}
+                          >
+                            Отклонить
+                          </button>
+                        </div>
+                      )}
                     </div>
 
-                    <div className="card-content">
+                    <div
+                      className="card-content"
+                      onClick={() => handleRowClick(query.id)}
+                    >
                       <div className="card-row">
                         <span className="label">Дата запроса:</span>
                         <span className="value">{formatDate(query.date_query)}</span>
@@ -266,14 +304,17 @@ const QueriesPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="card-footer">
+                    <div
+                      className="card-footer"
+                      onClick={() => handleRowClick(query.id)}
+                    >
                       <div className="card-user">
-                        <span className="label">Автор:</span>
+                        <span className="label">Аналитик:</span>
                         <span className="value">{query.creator_login}</span>
                       </div>
                       {query.moderator_login && (
                         <div className="card-user">
-                          <span className="label">Модератор:</span>
+                          <span className="label">Администратор БД:</span>
                           <span className="value">{query.moderator_login}</span>
                         </div>
                       )}
