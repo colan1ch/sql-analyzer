@@ -67,6 +67,11 @@
   grid-column: 1 / 2;
 }
 
+.query-page .row-col-2 .input-text:focus {
+  border-color: #000000;
+}
+
+
 .query-page .row-col-2,
 .query-page .row-col-3,
 .query-page .row-col-4,
@@ -116,6 +121,12 @@
   white-space: nowrap;
 }
 
+.input-text-2 {
+    font-family: "Public Sans-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 .query-page .input-text {
   border: 2px solid #000000;
   border-radius: 4px;
@@ -163,6 +174,30 @@
 .query-page .detail-button:hover {
   background-color: #000000;
   border-color: #ed3f39;
+}
+
+.query-page .confirm-button {
+  padding: 6px 12px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.query-page .confirm-button:hover:not(:disabled) {
+  background-color: #000000;
+  border-color: #ed3f39;
+}
+
+.query-page .confirm-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .query-page .delete-btn {
@@ -496,6 +531,35 @@
   opacity: 0.6;
   cursor: not-allowed;
   background-color: #f5f5f5;
+}
+
+.date-query-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirm-date-button {
+  padding: 8px 16px;
+  background-color: #ed3f39;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-date-button:hover:not(:disabled) {
+  background-color: #000000;
+  border-color: #ed3f39;
+}
+
+.confirm-date-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ...rest of existing code... */

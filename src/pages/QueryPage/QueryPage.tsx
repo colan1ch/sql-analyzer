@@ -29,6 +29,7 @@ interface QueryDetailResponse {
     image: string;
     name: string;
     description: string;
+    table_field: string;
   }>;
   indexesQuery: Array<{
     id: number;
@@ -37,7 +38,6 @@ interface QueryDetailResponse {
     rows_count: number;
     recieved_rows: number;
     cardinality: number;
-    table_field: string;
   }>;
   query: {
     id: number;
@@ -112,7 +112,7 @@ const QueryPage: React.FC = () => {
         rows_count: queryData?.rows_count,
         received_rows: queryData?.recieved_rows,
         cardinality: queryData?.cardinality,
-        table_field: queryData?.table_field,
+        table_field: index.table_field,
         index_id: queryData?.index_id,
       };
     });
@@ -183,7 +183,7 @@ const QueryPage: React.FC = () => {
         indexId,
         typedDetail.query.id,
         {
-          table_field: editData.tableField || undefined,
+          // table_field: editData.tableField || undefined,
           cardinality: editData.cardinality ? parseInt(editData.cardinality) : undefined,
           rows_count: editData.rowsCount ? parseInt(editData.rowsCount) : undefined,
         }
@@ -289,21 +289,25 @@ const QueryPage: React.FC = () => {
       </div>
 
       <div className="cardinality-wrapper">
-        <div className="cardinality date-query-field">
-          <label htmlFor="date-query">Дата запроса:</label>
+        <div className="date-query-field">
+          <label htmlFor="date-query" className="cardinality-label">Дата запроса:</label>
           <input
             id="date-query"
             type="date"
             className="input-date-query"
             value={dateQuery}
             onChange={(e) => setDateQuery(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSaveDateQuery();
-              }
-            }}
             disabled={!isDraft || isSavingDate}
           />
+          {isDraft && (
+            <button 
+              className="confirm-date-button" 
+              onClick={handleSaveDateQuery}
+              disabled={isSavingDate}
+            >
+              {isSavingDate ? 'Сохранение...' : 'Подтвердить'}
+            </button>
+          )}
         </div>
 
         <div className="cardinality">
@@ -315,7 +319,7 @@ const QueryPage: React.FC = () => {
         {isDraft && (
           <div className="button-group">
             <button className="submit-button" onClick={handleFormQuery}>
-              Подтвердить
+              Оформить
             </button>
             <button className="delete-button" onClick={handleDeleteQuery} disabled={isDeleting}>
               {isDeleting ? 'Удаление...' : 'Удалить'}
@@ -356,19 +360,16 @@ const QueryPage: React.FC = () => {
                   </div>
 
                   <div className="row-col row-col-2">
-                    <input
-                      type="text"
-                      className="input-text"
-                      value={editingIndexes[index.id]?.tableField || index.table_field || ''}
-                      onChange={(e) => handleTableFieldChange(index.id, e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleSaveIndexData(index.id);
-                        }
-                      }}
-                      disabled={!isDraft || savingIndexId === index.id}
-                      placeholder="-"
-                    />
+                    <div className="input-text-2">{index.table_field || ''}</div>
+                      {/* // onChange={(e) => handleTableFieldChange(index.id, e.target.value)}
+                      // onKeyPress={(e) => {
+                      //   if (e.key === 'Enter') {
+                      //     handleSaveIndexData(index.id);
+                      //   }
+                      // }}
+                      // disabled={!isDraft || savingIndexId === index.id}
+                      // placeholder="-"
+                    /> */}
                   </div>
 
                   <div className="row-col row-col-3">
@@ -377,11 +378,6 @@ const QueryPage: React.FC = () => {
                       className="input-text"
                       value={editingIndexes[index.id]?.cardinality || index.cardinality || ''}
                       onChange={(e) => handleCardinalityChange(index.id, e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleSaveIndexData(index.id);
-                        }
-                      }}
                       disabled={!isDraft || savingIndexId === index.id}
                       placeholder="-"
                     />
@@ -393,11 +389,6 @@ const QueryPage: React.FC = () => {
                       className="input-text"
                       value={editingIndexes[index.id]?.rowsCount || index.rows_count || ''}
                       onChange={(e) => handleRowsCountChange(index.id, e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleSaveIndexData(index.id);
-                        }
-                      }}
                       disabled={!isDraft || savingIndexId === index.id}
                       placeholder="-"
                     />
@@ -408,18 +399,24 @@ const QueryPage: React.FC = () => {
                   </div>
 
                   <div className="row-col row-col-6">
-                    <a href={`/sql-analyzer/indexes/${index.id}`} className="detail-button" title="Подробнее">
-                      Подробнее
-                    </a>
                     {isDraft && (
                       <button
-                        className="delete-btn"
-                        onClick={() => handleRemoveIndex(index.id)}
-                        title="Удалить индекс"
+                        className="confirm-button"
+                        onClick={() => handleSaveIndexData(index.id)}
+                        disabled={savingIndexId === index.id}
+                        title="Подтвердить"
                       >
-                        ✕
+                        {savingIndexId === index.id ? 'Сохранение...' : 'Подтвердить'}
                       </button>
                     )}
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleRemoveIndex(index.id)}
+                      style={!isDraft ? { visibility: 'hidden' } : {}}
+                      title="Удалить индекс"
+                    >
+                      ✕
+                    </button>
                   </div>
                 </div>
               ))

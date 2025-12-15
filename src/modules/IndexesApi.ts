@@ -3,7 +3,7 @@ import type { Index } from "./IndexesTypes";
 import { api } from "../api";
 
 
-const API_BASE_URL = "https://172.20.10.2:3000";
+const API_BASE_URL = "https://192.168.0.17:3000";
 
 export async function listIndexes(params?: { name?: string; date_from?: string; date_to?: string }): Promise<Index[]> {
   try {

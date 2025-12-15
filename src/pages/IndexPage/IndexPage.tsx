@@ -130,7 +130,7 @@ export default function IndexPage() {
               </div>
             )}
             
-            <p className="div">{index.description}</p>
+            <p className="div">{index.description} <br /> Поле таблицы: {index.table_field}</p>
           </div>
         </div>
       </div>

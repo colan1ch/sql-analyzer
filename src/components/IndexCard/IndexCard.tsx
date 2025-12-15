@@ -113,7 +113,7 @@ const IndexCard: React.FC<IndexCardProps> = ({ index, onAddSuccess }) => {
         </div>
       </Link>
       
-      <p className="index-description">{index.description}</p>
+      <p className="index-description">Поле таблицы: {index.table_field}</p>
       
       {isAuthenticated && (
         <button
