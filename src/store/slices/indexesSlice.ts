@@ -1,6 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { ApitypesIndexJSON } from '../../api/Api'
-import { api } from '../../api'
 
 interface IndexesState {
   indexes: ApitypesIndexJSON[]
@@ -13,20 +12,6 @@ const initialState: IndexesState = {
   loading: false,
   error: null
 }
-
-export const fetchIndexes = createAsyncThunk(
-  'indexes/fetchIndexes',
-  async (searchName: string | undefined, { rejectWithValue }) => {
-    try {
-      const response = await api.indexes.indexesList({ 
-        index_name: searchName 
-      });
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.description || 'Ошибка загрузки индексов');
-    }
-  }
-);
 
 const indexesSlice = createSlice({
   name: 'indexes',
@@ -44,21 +29,6 @@ const indexesSlice = createSlice({
     clearError: (state) => {
       state.error = null
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchIndexes.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchIndexes.fulfilled, (state, action) => {
-        state.loading = false;
-        state.indexes = action.payload as ApitypesIndexJSON[]; 
-      })
-      .addCase(fetchIndexes.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
   }
 })
 

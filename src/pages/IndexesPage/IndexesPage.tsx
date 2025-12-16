@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import IndexesList from '../../components/IndexesList/IndexesList';
@@ -7,16 +8,18 @@ import { BreadCrumbs } from '../../components/BreadCrumbs/BreadCrumbs';
 import { listIndexes, getQueryCart } from '../../modules/IndexesApi';
 import { INDEXES_MOCK } from '../../modules/mock'; 
 import { useSearchQuery } from '../../store/slices/filtersSlice';
-import type { Index } from '../../modules/IndexesTypes';
+import { setIndexes, setLoading, setError } from '../../store/slices/indexesSlice';
+import type { RootState } from '../../store';
 import './IndexesPage.css';
 import file_icon_path from '../../assets/file_icon.svg';
 
 export default function IndexesPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const searchQuery = useSearchQuery();
   
-  const [indexes, setIndexes] = useState<Index[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { indexes, loading } = useSelector((state: RootState) => state.indexes);
+  
   const [useMock, setUseMock] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [queryId, setQueryId] = useState<number | null>(null);
@@ -36,78 +39,80 @@ export default function IndexesPage() {
   };
 
   const performSearch = async (query: string) => {
-    setLoading(true);
+    dispatch(setLoading(true));
     try {
       const filtered = await listIndexes({ name: query });
       
       if (filtered.length > 0) {
-        setIndexes(filtered);
+        dispatch(setIndexes(filtered));
         setUseMock(false);
       } else {
         if (useMock) {
           const filteredMock = INDEXES_MOCK.filter(index =>
             index.name.toLowerCase().includes(query.toLowerCase())
           );
-          setIndexes(filteredMock);
+          dispatch(setIndexes(filteredMock));
         } else {
-          setIndexes([]);
+          dispatch(setIndexes([]));
         }
       }
     } catch (error) {
+      dispatch(setError('Ошибка загрузки индексов'));
       const filteredMock = INDEXES_MOCK.filter(index =>
         index.name.toLowerCase().includes(query.toLowerCase())
       );
-      setIndexes(filteredMock);
+      dispatch(setIndexes(filteredMock));
       setUseMock(true);
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
   useEffect(() => {
     const loadInitialData = async () => {
-      setLoading(true);
+      dispatch(setLoading(true));
       
       if (useMock) {
         if (searchQuery) {
           const filteredMock = INDEXES_MOCK.filter(index =>
             index.name.toLowerCase().includes(searchQuery.toLowerCase())
           );
-          setIndexes(filteredMock);
+          dispatch(setIndexes(filteredMock));
         } else {
-          setIndexes(INDEXES_MOCK);
+          dispatch(setIndexes(INDEXES_MOCK));
         }
-        setLoading(false);
+        dispatch(setLoading(false));
       } else {
         try {
           const data = await listIndexes(searchQuery ? { name: searchQuery } : undefined);
           
           if (data.length > 0) {
-            setIndexes(data);
+            dispatch(setIndexes(data));
             setUseMock(false);
           } else {
             if (searchQuery) {
               const filteredMock = INDEXES_MOCK.filter(index =>
                 index.name.toLowerCase().includes(searchQuery.toLowerCase())
               );
-              setIndexes(filteredMock);
+              dispatch(setIndexes(filteredMock));
             } else {
-              setIndexes(INDEXES_MOCK);
+              dispatch(setIndexes(INDEXES_MOCK));
             }
             setUseMock(true);
           }
         } catch (error) {
+          dispatch(setError('Ошибка загрузки индексов'));
           if (searchQuery) {
             const filteredMock = INDEXES_MOCK.filter(index =>
               index.name.toLowerCase().includes(searchQuery.toLowerCase())
             );
-            setIndexes(filteredMock);
+            dispatch(setIndexes(filteredMock));
           } else {
-            setIndexes(INDEXES_MOCK);
+            dispatch(setIndexes(INDEXES_MOCK));
           }
           setUseMock(true);
         } finally {
-          setLoading(false);
+          dispatch(setLoading(false));
         }
       }
     };

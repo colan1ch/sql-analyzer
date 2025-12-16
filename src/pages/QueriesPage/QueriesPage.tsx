@@ -27,11 +27,12 @@ interface FilterParams {
 
 const QueriesPage: React.FC = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, isModerator } = useSelector((state: RootState) => state.auth);
   
   const [queries, setQueries] = useState<QueryItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [todayCount, setTodayCount] = useState<number>(0);
   const [filters, setFilters] = useState<FilterParams>({
     fromDate: null,
     toDate: null,
@@ -65,9 +66,23 @@ const QueriesPage: React.FC = () => {
     }
   };
 
+  const loadTodayCount = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const response = await api.queries.queriesList({
+        'from-date': today,
+        'to-date': today,
+      });
+      setTodayCount((response.data || []).length);
+    } catch (err: any) {
+      console.error('Error loading today count:', err);
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       loadQueries();
+      loadTodayCount();
     }
   }, [isAuthenticated]);
 
@@ -218,7 +233,7 @@ const QueriesPage: React.FC = () => {
                   Применить
                 </button>
                 <button className="logout-button" onClick={handleTodayFilter}>
-                  За сегодня
+                  Запросов за сегодня: {todayCount}
                 </button>
                 <button className="logout-button" onClick={handleResetFilters}>
                   Очистить
@@ -232,12 +247,12 @@ const QueriesPage: React.FC = () => {
               <div className="error">{error}</div>
             ) : queries.length === 0 ? (
               <div className="empty">
-                <p>У вас нет заявок</p>
+                <p>У вас нет запросов</p>
                 <button 
                   className="create-button"
                   onClick={() => navigate('/indexes')}
                 >
-                  Создать новую заявку
+                  Создать новый запрос
                 </button>
               </div>
             ) : (
@@ -252,7 +267,7 @@ const QueriesPage: React.FC = () => {
                       <span className={`status-badge status-${query.status}`}>
                         {getStatusBadge(query.status)}
                       </span>
-                      {query.status === 'formed' && (
+                      {query.status === 'formed' && isModerator && (
                         <div className="card-actions">
                           <button
                             className="action-button action-approve"
