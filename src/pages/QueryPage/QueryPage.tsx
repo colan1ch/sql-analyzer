@@ -311,7 +311,7 @@ const QueryPage: React.FC = () => {
         </div>
 
         <div className="cardinality">
-          Время выполнения: {typedDetail.query.execution_time || 0}мс
+          Время выполнения: {typedDetail.query.execution_time || 0} мс.
         </div>
         <div className="cardinality">
           Полученных строк: {totalReceivedRows}

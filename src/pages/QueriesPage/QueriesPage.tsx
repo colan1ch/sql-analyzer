@@ -324,7 +324,7 @@ const QueriesPage: React.FC = () => {
                       )}
                       <div className="card-row">
                         <span className="label">Время выполнения:</span>
-                        <span className="value">{query.execution_time}ms</span>
+                        <span className="value">{query.execution_time} мс.</span>
                       </div>
                     </div>
 
