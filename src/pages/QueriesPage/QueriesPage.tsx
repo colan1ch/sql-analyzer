@@ -46,7 +46,7 @@ const QueriesPage: React.FC = () => {
   }, [isAuthenticated, navigate]);
 
   const loadQueries = async (filterParams?: FilterParams) => {
-    setLoading(true);
+    // setLoading(true);
     setError(null);
     try {
       const params = filterParams || filters;
@@ -83,8 +83,15 @@ const QueriesPage: React.FC = () => {
     if (isAuthenticated) {
       loadQueries();
       loadTodayCount();
+
+      // Short polling: автоматическое обновление списка запросов каждые 3 секунды
+      const intervalId = setInterval(() => {
+        loadQueries(filters);
+      }, 500);
+
+      return () => clearInterval(intervalId);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, filters]);
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '-';
@@ -134,11 +141,13 @@ const QueriesPage: React.FC = () => {
   const handleDateFilterChange = (e: React.ChangeEvent<HTMLInputElement>, filterType: 'fromDate' | 'toDate') => {
     const newFilters = { ...filters, [filterType]: e.target.value || null };
     setFilters(newFilters);
+    loadQueries(newFilters);
   };
 
   const handleStatusFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newFilters = { ...filters, status: e.target.value || null };
     setFilters(newFilters);
+    loadQueries(newFilters);
   };
 
   const handleApplyFilters = () => {
@@ -229,10 +238,10 @@ const QueriesPage: React.FC = () => {
               </div>
 
               <div className="filters-actions">
-                <button className="logout-button" onClick={handleApplyFilters}>
+                {/* <button className="logout-button" onClick={handleApplyFilters}>
                   Найти
                 </button>
-                {/* <button className="logout-button" onClick={handleTodayFilter}>
+                <button className="logout-button" onClick={handleTodayFilter}>
                   Запросов за сегодня: {todayCount}
                 </button>
                 <button className="logout-button" onClick={handleResetFilters}>
@@ -269,7 +278,7 @@ const QueriesPage: React.FC = () => {
                       </span>
                       {query.status === 'formed' && isModerator && (
                         <div className="card-actions">
-                          {/* <button
+                          <button
                             className="action-button action-approve"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -286,7 +295,7 @@ const QueriesPage: React.FC = () => {
                             }}
                           >
                             Отклонить
-                          </button> */}
+                          </button>
                         </div>
                       )}
                     </div>
