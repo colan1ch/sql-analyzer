@@ -153,6 +153,7 @@ const authSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.loading = false;
         if (action.payload) {
+          state.isAuthenticated = true;
           state.isModerator = action.payload.is_moderator || false;
         } else {
           state.isAuthenticated = false;

@@ -19,12 +19,20 @@ export default function IndexesPage() {
   const searchQuery = useSearchQuery();
   
   const { indexes, loading } = useSelector((state: RootState) => state.indexes);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   
   const [useMock, setUseMock] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [queryId, setQueryId] = useState<number | null>(null);
 
   const loadCartData = async () => {
+    // Загружаем данные корзины только если пользователь аутентифицирован
+    if (!isAuthenticated) {
+      setCartCount(0);
+      setQueryId(null);
+      return;
+    }
+    
     const cart = await getQueryCart();
     setCartCount(cart.indexes_count);
     setQueryId(cart.id);
@@ -32,7 +40,7 @@ export default function IndexesPage() {
 
   useEffect(() => {
     loadCartData();
-  }, []);
+  }, [isAuthenticated]);
 
   const handleIndexAdded = () => {
     loadCartData();

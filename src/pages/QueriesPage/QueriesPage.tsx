@@ -230,14 +230,14 @@ const QueriesPage: React.FC = () => {
 
               <div className="filters-actions">
                 <button className="logout-button" onClick={handleApplyFilters}>
-                  Применить
+                  Найти
                 </button>
-                <button className="logout-button" onClick={handleTodayFilter}>
+                {/* <button className="logout-button" onClick={handleTodayFilter}>
                   Запросов за сегодня: {todayCount}
                 </button>
                 <button className="logout-button" onClick={handleResetFilters}>
                   Очистить
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -269,7 +269,7 @@ const QueriesPage: React.FC = () => {
                       </span>
                       {query.status === 'formed' && isModerator && (
                         <div className="card-actions">
-                          <button
+                          {/* <button
                             className="action-button action-approve"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -286,7 +286,7 @@ const QueriesPage: React.FC = () => {
                             }}
                           >
                             Отклонить
-                          </button>
+                          </button> */}
                         </div>
                       )}
                     </div>

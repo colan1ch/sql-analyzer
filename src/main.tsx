@@ -10,8 +10,6 @@ import { clearAuth } from './store/slices/authSlice'
 
 // store.dispatch(checkAuth() as any)
 
-localStorage.removeItem('token')
-localStorage.removeItem('username')
 store.dispatch(clearAuth())
 
 
