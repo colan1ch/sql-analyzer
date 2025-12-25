@@ -82,9 +82,8 @@ const QueriesPage: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated) {
       loadQueries();
-      loadTodayCount();
 
-      // Short polling: автоматическое обновление списка запросов каждые 3 секунды
+      // Short polling
       const intervalId = setInterval(() => {
         loadQueries(filters);
       }, 500);
