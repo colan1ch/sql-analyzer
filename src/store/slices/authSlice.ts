@@ -9,10 +9,18 @@ interface AuthState {
   error: string | null;
 }
 
+// const initialState: AuthState = {
+//   username: localStorage.getItem('username') || '',
+//   isAuthenticated: !!localStorage.getItem('token'),
+//   isModerator: localStorage.getItem('isModerator') === 'true',
+//   loading: false,
+//   error: null,
+// };
+
 const initialState: AuthState = {
-  username: localStorage.getItem('username') || '',
-  isAuthenticated: !!localStorage.getItem('token'),
-  isModerator: localStorage.getItem('isModerator') === 'true',
+  username: '',
+  isAuthenticated: false,
+  isModerator: false,
   loading: false,
   error: null,
 };
@@ -101,12 +109,12 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
-    clearAuth: (state) => {
-      state.isAuthenticated = false;
-      state.username = '';
-      state.error = null;
-      state.loading = false;
-    },
+    // clearAuth: (state) => {
+    //   state.isAuthenticated = false;
+    //   state.username = '';
+    //   state.error = null;
+    //   state.loading = false;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -173,5 +181,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError, clearAuth } = authSlice.actions;
+export const { clearError } = authSlice.actions;
 export default authSlice.reducer;
