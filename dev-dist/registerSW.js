@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sql-analyzer/dev-sw.js?dev-sw', { scope: '/sql-analyzer/', type: 'classic' })

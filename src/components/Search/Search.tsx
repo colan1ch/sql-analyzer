@@ -1,0 +1,37 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setSearchQuery } from '../../store/slices/filtersSlice';
+import './Search.css';
+import search_icon_path from '../../assets/search_icon.svg';
+
+interface SearchProps {
+  query: string;
+  onSearch: () => void;
+}
+
+export default function Search({ query, onSearch }: SearchProps) {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch();
+  };
+
+  const handleQueryChange = (newQuery: string) => {
+    dispatch(setSearchQuery(newQuery));
+  };
+
+  return (
+    <form className="search-form" onSubmit={handleSubmit}>
+      <img className='search-icon' src={search_icon_path} alt="Search" />
+      <input 
+        type="text" 
+        className="search-input" 
+        placeholder="Поиск по названию индекса" 
+        value={query}
+        onChange={(e) => handleQueryChange(e.target.value)}
+      />
+      <button type="submit" className="search-button">Найти</button>
+    </form>
+  );
+}
